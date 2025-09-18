@@ -10,7 +10,7 @@ interface ResultsCardProps {
 
 export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) => {
   return (
-    <div className="bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-6 sm:p-8 page-break-inside-avoid" role="region" aria-labelledby="results-title" data-testid="results-card">
+    <div className="animate-fade-in bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-6 sm:p-8 page-break-inside-avoid" role="region" aria-labelledby="results-title" data-testid="results-card">
       <div className="text-center mb-8">
         <div className="w-20 h-20 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center">
           <CheckCircle className="w-10 h-10 text-accent-foreground" aria-hidden="true" />
