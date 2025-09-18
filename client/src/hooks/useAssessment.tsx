@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AssessmentState, Question, AssessmentAnswers, AssessmentResults } from '@/types/assessment';
 
 const QUESTIONS: Question[] = [
@@ -97,7 +97,82 @@ const QUESTIONS: Question[] = [
   }
 ];
 
+const STORAGE_KEY = 'tecnis-iol-assessment';
+const HISTORY_KEY = 'tecnis-iol-assessment-history';
+
+// Helper functions for localStorage
+const saveToStorage = (data: AssessmentState) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      ...data,
+      timestamp: new Date().toISOString()
+    }));
+  } catch (error) {
+    console.warn('Failed to save assessment to localStorage:', error);
+  }
+};
+
+const loadFromStorage = (): AssessmentState | null => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // Only restore if the assessment is not complete and has progress
+      if (!parsed.isComplete && (parsed.currentQuestion > 0 || Object.keys(parsed.answers || {}).length > 0)) {
+        return {
+          currentQuestion: parsed.currentQuestion || 0,
+          totalQuestions: QUESTIONS.length,
+          answers: parsed.answers || {},
+          isLoading: false,
+          isComplete: false,
+          results: parsed.results
+        };
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to load assessment from localStorage:', error);
+  }
+  return null;
+};
+
+const saveCompletedAssessment = (results: AssessmentResults, answers: AssessmentAnswers) => {
+  try {
+    const history = getAssessmentHistory();
+    const newEntry = {
+      id: Date.now().toString(),
+      timestamp: new Date().toISOString(),
+      results,
+      answers
+    };
+    
+    // Keep only the last 10 assessments
+    const updatedHistory = [newEntry, ...history].slice(0, 10);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+  } catch (error) {
+    console.warn('Failed to save assessment history:', error);
+  }
+};
+
+const getAssessmentHistory = () => {
+  try {
+    const stored = localStorage.getItem(HISTORY_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.warn('Failed to load assessment history:', error);
+    return [];
+  }
+};
+
+const clearCurrentAssessment = () => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.warn('Failed to clear current assessment:', error);
+  }
+};
+
 export const useAssessment = () => {
+  // Initialize state WITHOUT auto-restore to allow user choice
   const [state, setState] = useState<AssessmentState>({
     currentQuestion: 0,
     totalQuestions: QUESTIONS.length,
@@ -105,6 +180,13 @@ export const useAssessment = () => {
     isLoading: false,
     isComplete: false,
   });
+
+  // Save state to localStorage whenever it changes (except loading states and completed states)
+  useEffect(() => {
+    if (!state.isLoading && !state.isComplete) {
+      saveToStorage(state);
+    }
+  }, [state]);
 
   const announceToScreenReader = useCallback((message: string) => {
     const announcement = document.createElement('div');
@@ -298,11 +380,18 @@ export const useAssessment = () => {
         results
       }));
       
+      // Save completed assessment to history and clear current progress
+      saveCompletedAssessment(results, state.answers);
+      clearCurrentAssessment();
+      
       announceToScreenReader('Assessment complete. Results are now displayed.');
     }, 1500);
   }, [state.answers, calculateResults, announceToScreenReader]);
 
   const restartAssessment = useCallback(() => {
+    // Clear stored progress
+    clearCurrentAssessment();
+    
     setState({
       currentQuestion: 0,
       totalQuestions: QUESTIONS.length,
@@ -312,6 +401,21 @@ export const useAssessment = () => {
     });
     
     announceToScreenReader('Assessment restarted');
+  }, [announceToScreenReader]);
+
+  // Check if there's saved progress
+  const hasSavedProgress = useCallback(() => {
+    const stored = loadFromStorage();
+    return stored !== null && (stored.currentQuestion > 0 || Object.keys(stored.answers).length > 0);
+  }, []);
+
+  // Restore saved progress (called when user chooses to resume)
+  const restoreProgress = useCallback(() => {
+    const stored = loadFromStorage();
+    if (stored) {
+      setState(stored);
+      announceToScreenReader(`Resumed assessment at question ${stored.currentQuestion + 1}`);
+    }
   }, [announceToScreenReader]);
 
   return {
@@ -324,5 +428,9 @@ export const useAssessment = () => {
     previousQuestion,
     restartAssessment,
     announceToScreenReader,
+    hasSavedProgress,
+    restoreProgress,
+    getAssessmentHistory,
+    clearCurrentAssessment,
   };
 };

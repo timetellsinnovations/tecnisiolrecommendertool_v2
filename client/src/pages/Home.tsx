@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from '@/components/Header';
 import { DisclaimerBanner } from '@/components/DisclaimerBanner';
 import { ProgressSection } from '@/components/ProgressSection';
@@ -6,6 +6,7 @@ import { QuestionCard } from '@/components/QuestionCard';
 import { LoadingState } from '@/components/LoadingState';
 import { ResultsCard } from '@/components/ResultsCard';
 import { Footer } from '@/components/Footer';
+import { SavedProgressNotification } from '@/components/SavedProgressNotification';
 import { useAssessment } from '@/hooks/useAssessment';
 
 export default function Home() {
@@ -18,8 +19,25 @@ export default function Home() {
     nextQuestion,
     previousQuestion,
     restartAssessment,
-    announceToScreenReader
+    announceToScreenReader,
+    hasSavedProgress,
+    restoreProgress,
+    clearCurrentAssessment
   } = useAssessment();
+
+  const [showSavedProgressNotification, setShowSavedProgressNotification] = useState(false);
+
+  // Check for saved progress on component mount
+  useEffect(() => {
+    const checkSavedProgress = () => {
+      if (hasSavedProgress()) {
+        setShowSavedProgressNotification(true);
+      }
+    };
+    
+    // Check immediately since we no longer auto-restore
+    checkSavedProgress();
+  }, [hasSavedProgress]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -74,6 +92,19 @@ export default function Home() {
     }
   };
 
+  const handleResumeProgress = () => {
+    // Restore the saved progress to state
+    restoreProgress();
+    setShowSavedProgressNotification(false);
+  };
+
+  const handleStartFresh = () => {
+    clearCurrentAssessment();
+    restartAssessment();
+    setShowSavedProgressNotification(false);
+    announceToScreenReader('Starting fresh assessment');
+  };
+
   const progress = getProgress();
   const currentQuestion = getCurrentQuestion();
   const currentAnswer = state.answers[state.currentQuestion + 1];
@@ -82,6 +113,12 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <DisclaimerBanner />
+      
+      <SavedProgressNotification
+        hasSavedProgress={showSavedProgressNotification}
+        onResumeProgress={handleResumeProgress}
+        onStartFresh={handleStartFresh}
+      />
       
       <main id="main-content" className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
         {!state.isComplete && (
