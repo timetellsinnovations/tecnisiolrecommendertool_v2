@@ -2,7 +2,7 @@ import { AlertTriangle } from 'lucide-react';
 
 export const DisclaimerBanner = () => {
   return (
-    <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 shadow-sm" role="complementary" aria-labelledby="disclaimer-title">
+    <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 shadow-sm" role="alert" aria-labelledby="disclaimer-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-start">
           <div className="flex-shrink-0">

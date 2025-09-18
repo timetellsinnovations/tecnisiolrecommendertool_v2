@@ -48,6 +48,9 @@ export const QuestionCard = ({
   canGoPrevious,
   questionNumber
 }: QuestionCardProps) => {
+  const helpTextId = `question-${question.id}-help`;
+  const questionTextId = `question-${question.id}-text`;
+
   const handleSingleSelect = (optionId: string) => {
     onAnswerChange(optionId);
   };
@@ -70,16 +73,16 @@ export const QuestionCard = ({
 
   return (
     <div className="animate-fade-in">
-      <article className="bg-card dark:bg-card rounded-lg shadow-lg p-6 sm:p-8 mb-8" role="group" aria-labelledby="question-text">
+      <article className="bg-card dark:bg-card rounded-lg shadow-lg p-6 sm:p-8 mb-8" role="group" aria-labelledby={questionTextId}>
         <header className="flex items-start mb-6 pb-4 border-b border-border">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">
             <span data-testid="text-question-number">{questionNumber}</span>
           </div>
           <div className="flex-1">
-            <h3 id="question-text" className="text-xl font-semibold text-card-foreground mb-2" data-testid="text-question">
+            <h3 id={questionTextId} className="text-xl font-semibold text-card-foreground mb-2" data-testid="text-question">
               {question.text}
             </h3>
-            <p className="text-sm text-muted-foreground" data-testid="text-question-help">
+            <p id={helpTextId} className="text-sm text-muted-foreground" data-testid="text-question-help">
               {question.help}
             </p>
           </div>
@@ -88,12 +91,15 @@ export const QuestionCard = ({
         <div 
           className="space-y-4" 
           role={question.type === 'single' ? 'radiogroup' : 'group'} 
-          aria-labelledby="question-text"
+          aria-labelledby={questionTextId}
+          aria-describedby={helpTextId}
           data-testid="answer-options"
         >
           {question.options.map((option) => {
             const IconComponent = iconMap[option.icon as keyof typeof iconMap];
             const selected = isSelected(option.id);
+            const optionTitleId = `option-title-${question.id}-${option.id}`;
+            const optionDescriptionId = `option-description-${question.id}-${option.id}`;
             
             return (
               <label key={option.id} className="block">
@@ -104,6 +110,7 @@ export const QuestionCard = ({
                   checked={selected}
                   onChange={() => question.type === 'single' ? handleSingleSelect(option.id) : handleMultiSelect(option.id)}
                   className="sr-only peer"
+                  aria-labelledby={`${optionTitleId} ${optionDescriptionId}`}
                   data-testid={`input-${option.id}`}
                 />
                 <div className={`flex items-center p-4 bg-muted hover:bg-card hover:shadow-md border-2 border-transparent ${
@@ -113,10 +120,10 @@ export const QuestionCard = ({
                     {IconComponent && <IconComponent className="w-6 h-6 text-muted-foreground" aria-hidden="true" />}
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-card-foreground" data-testid={`text-option-title-${option.id}`}>
+                    <h4 id={optionTitleId} className="font-medium text-card-foreground" data-testid={`text-option-title-${option.id}`}>
                       {option.text}
                     </h4>
-                    <p className="text-sm text-muted-foreground mt-1" data-testid={`text-option-description-${option.id}`}>
+                    <p id={optionDescriptionId} className="text-sm text-muted-foreground mt-1" data-testid={`text-option-description-${option.id}`}>
                       {option.description}
                     </p>
                   </div>
