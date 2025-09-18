@@ -1,0 +1,28 @@
+{
+  "name": "TECNIS® IOL Selection Tool - Patient Education Guide",
+  "short_name": "TECNIS® IOL Tool",
+  "description": "Interactive patient education tool for TECNIS® IOL selection with personalized recommendations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#DC143C",
+  "theme_color": "#DC143C",
+  "orientation": "portrait-primary",
+  "categories": ["health", "medical", "education"],
+  "scope": "/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23DC143C'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-family='Arial, sans-serif' font-size='48' font-weight='bold' fill='white'%3ET%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23DC143C'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-family='Arial, sans-serif' font-size='48' font-weight='bold' fill='white'%3ET%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "en-US",
+  "dir": "ltr"
+}
