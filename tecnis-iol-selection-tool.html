@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="theme-color" content="#DC143C">
+    <meta name="description" content="Interactive patient education tool for TECNIS® IOL selection with personalized recommendations">
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>TECNIS® IOL Selection Tool | Patient Education Guide</title>
+    
+    <!-- Early theme script to prevent FOUC -->
+    <script>
+        (function() {
+            try {
+                const storageKey = 'tecnis-iol-theme';
+                const theme = localStorage.getItem(storageKey) || 'system';
+                const root = document.documentElement;
+                
+                root.classList.remove('light', 'dark');
+                
+                if (theme === 'system') {
+                    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches 
+                        ? 'dark' 
+                        : 'light';
+                    root.classList.add(systemTheme);
+                } else {
+                    root.classList.add(theme);
+                }
+            } catch (e) {
+                // Fallback to light theme if anything fails
+                document.documentElement.classList.add('light');
+            }
+        })();
+    </script>
+    
+    <style>
+        /* CSS Variables for theming */
+        :root {
+            --background: hsl(0 0% 100%);
+            --foreground: hsl(240 10% 3.9%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(240 10% 3.9%);
+            --popover: hsl(0 0% 100%);
+            --popover-foreground: hsl(240 10% 3.9%);
+            --primary: hsl(346 83% 47%);
+            --primary-foreground: hsl(0 0% 98%);
+            --secondary: hsl(210 64% 58%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(240 4.8% 95.9%);
+            --muted-foreground: hsl(240 3.8% 46.1%);
+            --accent: hsl(158 64% 52%);
+            --accent-foreground: hsl(0 0% 98%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 98%);
+            --border: hsl(240 5.9% 90%);
+            --input: hsl(240 5.9% 90%);
+            --ring: hsl(346 83% 47%);
+            --radius: 0.75rem;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .dark {
+            --background: hsl(0 0% 0%);
+            --foreground: hsl(200 6.6667% 91.1765%);
+            --card: hsl(228 9.8039% 10%);
+            --card-foreground: hsl(0 0% 85.0980%);
+            --popover: hsl(0 0% 0%);
+            --popover-foreground: hsl(200 6.6667% 91.1765%);
+            --primary: hsl(346 83% 47%);
+            --primary-foreground: hsl(0 0% 100%);
+            --secondary: hsl(210 64% 58%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(0 0% 9.4118%);
+            --muted-foreground: hsl(210 3.3898% 46.2745%);
+            --accent: hsl(158 64% 52%);
+            --accent-foreground: hsl(0 0% 98%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 100%);
+            --border: hsl(210 5.2632% 14.9020%);
+            --input: hsl(207.6923 27.6596% 18.4314%);
+            --ring: hsl(346 83% 47%);
+        }
+
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--muted)/0.5) 100%);
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)/0.9) 100%);
+            color: hsl(var(--primary-foreground));
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            width: 3rem;
+            height: 3rem;
+            background: hsl(var(--primary-foreground));
+            color: hsl(var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .header-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            display: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            position: relative;
+        }
+
+        .theme-button {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            background: transparent;
+            color: hsl(var(--primary-foreground));
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .theme-button:hover {
+            background: hsl(var(--primary-foreground)/0.1);
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+            min-width: 8rem;
+            z-index: 50;
+            display: none;
+        }
+
+        .theme-dropdown.active {
+            display: block;
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: none;
+            background: transparent;
+            color: hsl(var(--card-foreground));
+            cursor: pointer;
+            border-radius: 0.25rem;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.2s;
+        }
+
+        .theme-option:hover, .theme-option.active {
+            background: hsl(var(--muted));
+        }
+
+        /* Disclaimer Banner */
+        .disclaimer-banner {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #ffeaa7;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 50;
+            transform: translateY(-100px);
+            transition: transform 0.3s;
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: hsl(var(--muted));
+            border-radius: 0.25rem;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+            transition: width 0.5s ease;
+            border-radius: 0.25rem;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: hsl(var(--card));
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        .question-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)/0.8) 100%);
+            color: hsl(var(--primary-foreground));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .question-content {
+            flex: 1;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 0.5rem;
+        }
+
+        .question-help {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: hsl(var(--muted));
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            background: hsl(var(--card));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer-option.selected {
+            border-color: hsl(var(--primary));
+            background: hsl(var(--primary)/0.05);
+        }
+
+        .dark .answer-option.selected {
+            background: hsl(var(--primary)/0.1);
+        }
+
+        .option-icon {
+            width: 3rem;
+            height: 3rem;
+            background: hsl(var(--card));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: 500;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 0.25rem;
+        }
+
+        .option-description {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .option-selector {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid hsl(var(--muted-foreground));
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .option-selector.radio {
+            border-radius: 50%;
+        }
+
+        .option-selector.checkbox {
+            border-radius: 0.25rem;
+        }
+
+        .option-selector.selected {
+            border-color: hsl(var(--primary));
+            background: hsl(var(--primary));
+        }
+
+        .selector-indicator {
+            background: hsl(var(--primary-foreground));
+            border-radius: 50%;
+        }
+
+        .radio-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 8rem;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: hsl(var(--primary)/0.9);
+        }
+
+        .btn-secondary {
+            background: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: hsl(var(--secondary)/0.9);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border));
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            background: hsl(var(--muted));
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Card */
+        .results-card {
+            background: linear-gradient(135deg, hsl(var(--accent)/0.05) 0%, hsl(var(--primary)/0.05) 100%);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .dark .results-card {
+            background: linear-gradient(135deg, hsl(var(--accent)/0.1) 0%, hsl(var(--primary)/0.1) 100%);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-icon {
+            width: 5rem;
+            height: 5rem;
+            background: hsl(var(--accent));
+            color: hsl(var(--accent-foreground));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
+            color: hsl(var(--muted-foreground));
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .result-card {
+            background: hsl(var(--card));
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 1rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            color: hsl(var(--muted-foreground));
+        }
+
+        .result-value {
+            font-weight: 500;
+            color: hsl(var(--card-foreground));
+        }
+
+        .match-score {
+            color: hsl(var(--accent));
+            font-weight: 600;
+        }
+
+        .benefit-list, .consideration-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefit-item, .consideration-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .benefit-indicator {
+            color: hsl(var(--accent));
+            margin-right: 0.5rem;
+            margin-top: 0.125rem;
+        }
+
+        .consideration-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: hsl(var(--primary));
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .loading-spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 3px solid hsl(var(--muted));
+            border-top: 3px solid hsl(var(--primary));
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* Saved Progress Notification */
+        .saved-progress-notification {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .saved-progress-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .saved-progress-text {
+            flex: 1;
+        }
+
+        .saved-progress-title {
+            font-weight: 600;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 0.25rem;
+        }
+
+        .saved-progress-description {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .saved-progress-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: hsl(var(--muted));
+            color: hsl(var(--muted-foreground));
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        /* Hidden elements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Focus styles */
+        .focus-ring:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px hsl(var(--ring));
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .header-subtitle {
+                display: block;
+            }
+            
+            .navigation {
+                flex-wrap: nowrap;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 12mm 15mm 12mm;
+            }
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            html {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            body {
+                background: white !important;
+                color: #1a1a1a !important;
+            }
+            
+            .no-print,
+            .header,
+            .disclaimer-banner,
+            .progress-section,
+            .navigation,
+            .saved-progress-notification,
+            .footer {
+                display: none !important;
+            }
+            
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20pt;
+                border-bottom: 2pt solid #DC143C;
+                padding-bottom: 10pt;
+            }
+            
+            .print-header h1 {
+                font-size: 18pt;
+                font-weight: 700;
+                color: #DC143C !important;
+                margin: 0;
+            }
+            
+            .print-header .subtitle {
+                font-size: 12pt;
+                color: #666 !important;
+                margin: 4pt 0 0 0;
+            }
+            
+            .results-card {
+                margin: 20pt 0;
+                border: 1pt solid #ddd;
+                border-radius: 8pt;
+                padding: 15pt;
+                background: #fafafa !important;
+                page-break-inside: avoid;
+            }
+            
+            .results-icon {
+                display: none !important;
+            }
+            
+            .results-title {
+                font-size: 16pt;
+                font-weight: 600;
+                color: #1a1a1a !important;
+                margin-bottom: 12pt;
+                text-align: center;
+            }
+            
+            .results-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15pt;
+                margin: 15pt 0;
+            }
+            
+            .result-card {
+                background: white !important;
+                border: 1pt solid #ccc;
+                border-radius: 6pt;
+                padding: 12pt;
+                box-shadow: none !important;
+            }
+            
+            .result-card h3 {
+                font-size: 14pt;
+                font-weight: 600;
+                color: #DC143C !important;
+                margin: 0 0 8pt 0;
+            }
+            
+            .result-value {
+                font-size: 13pt;
+                font-weight: 500;
+                color: #1a1a1a !important;
+            }
+            
+            .match-score {
+                font-size: 13pt;
+                font-weight: 600;
+                color: #158947 !important;
+            }
+            
+            .benefit-list,
+            .consideration-list {
+                margin: 8pt 0;
+                padding-left: 15pt;
+                list-style: disc inside;
+            }
+            
+            .benefit-item,
+            .consideration-item {
+                display: list-item !important;
+                font-size: 11pt;
+                line-height: 1.3;
+                margin-bottom: 4pt;
+                color: #333 !important;
+            }
+            
+            .benefit-indicator,
+            .consideration-indicator {
+                display: none !important;
+            }
+            
+            .print-footer {
+                display: block !important;
+                margin-top: 25pt;
+                padding-top: 15pt;
+                border-top: 1pt solid #ddd;
+                font-size: 10pt;
+                color: #666 !important;
+                text-align: center;
+            }
+            
+            .print-disclaimer {
+                margin-top: 20pt;
+                padding: 10pt;
+                background: #fff3cd !important;
+                border: 1pt solid #ffeaa7;
+                border-radius: 4pt;
+                font-size: 10pt;
+                line-height: 1.3;
+                color: #856404 !important;
+            }
+            
+            .print-timestamp {
+                margin-top: 10pt;
+                font-size: 9pt;
+                color: #999 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-brand">
+                    <div class="header-logo">T</div>
+                    <div>
+                        <h1 class="header-title">TECNIS® IOL Selection Tool</h1>
+                        <p class="header-subtitle">Patient Education Guide</p>
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="theme-toggle">
+                        <button class="theme-button focus-ring" id="theme-toggle" aria-label="Toggle theme">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"/>
+                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                            </svg>
+                        </button>
+                        <div class="theme-dropdown" id="theme-dropdown">
+                            <button class="theme-option" data-theme="light">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                </svg>
+                                Light
+                            </button>
+                            <button class="theme-option" data-theme="dark">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                </svg>
+                                Dark
+                            </button>
+                            <button class="theme-option" data-theme="system">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                                System
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Disclaimer Banner -->
+    <div class="disclaimer-banner no-print">
+        <div class="container">
+            <strong>Medical Disclaimer:</strong> This tool is for educational purposes only and should not replace professional medical advice. Please consult with your ophthalmologist for personalized IOL selection.
+        </div>
+    </div>
+
+    <!-- Saved Progress Notification -->
+    <div class="saved-progress-notification hidden no-print" id="saved-progress-notification">
+        <div class="container">
+            <div class="saved-progress-content">
+                <div class="saved-progress-text">
+                    <div class="saved-progress-title">Saved Progress Found</div>
+                    <div class="saved-progress-description">Would you like to continue where you left off or start fresh?</div>
+                </div>
+                <div class="saved-progress-actions">
+                    <button class="btn btn-primary" id="resume-progress">Resume</button>
+                    <button class="btn btn-outline" id="start-fresh">Start Fresh</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+        
+        <!-- Progress Section -->
+        <div class="progress-section no-print" id="progress-section">
+            <h2>Assessment Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p id="progress-text">Question 1 of 8 (12% complete)</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state hidden" id="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading next question...</p>
+        </div>
+
+        <!-- Question Container -->
+        <div id="question-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="hidden">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer no-print">
+        <div class="container">
+            <p>&copy; 2024 TECNIS® IOL Selection Tool. For educational purposes only.</p>
+        </div>
+    </footer>
+
+    <!-- Screen Reader Announcements -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
+
+    <script>
+        // Assessment Data and Logic
+        const QUESTIONS = [
+            {
+                id: 1,
+                text: "What is your primary visual lifestyle need?",
+                help: "Consider your daily activities and what vision distances are most important to you.",
+                type: 'single',
+                options: [
+                    { id: 'near-vision', text: 'Near Vision Priority', description: 'Reading, computer work, and close-up tasks', icon: '📖' },
+                    { id: 'distance-vision', text: 'Distance Vision Priority', description: 'Driving, sports, and far-away activities', icon: '👁️' },
+                    { id: 'balanced-vision', text: 'Balanced Vision', description: 'Equal importance for near and distance activities', icon: '🌍' }
+                ]
+            },
+            {
+                id: 2,
+                text: "How important is it to minimize your dependence on glasses?",
+                help: "Consider your lifestyle preferences and daily activities.",
+                type: 'single',
+                options: [
+                    { id: 'very-important', text: 'Very Important', description: 'I strongly prefer not to wear glasses', icon: '🎯' },
+                    { id: 'somewhat-important', text: 'Somewhat Important', description: 'I would like reduced dependence on glasses', icon: '📈' },
+                    { id: 'not-important', text: 'Not Important', description: 'I am comfortable wearing glasses', icon: '👓' }
+                ]
+            },
+            {
+                id: 3,
+                text: "How often do you drive at night or in low light conditions?",
+                help: "This helps determine the best IOL for your vision needs in challenging lighting.",
+                type: 'single',
+                options: [
+                    { id: 'frequently', text: 'Frequently', description: 'Regular night driving or low-light activities', icon: '🌙' },
+                    { id: 'occasionally', text: 'Occasionally', description: 'Some evening or challenging condition driving', icon: '🌅' },
+                    { id: 'rarely', text: 'Rarely or Never', description: 'Minimal night or challenging condition driving', icon: '☀️' }
+                ]
+            },
+            {
+                id: 4,
+                text: "Which activities are most important to your daily routine?",
+                help: "Select all that apply to your lifestyle.",
+                type: 'multi',
+                options: [
+                    { id: 'reading', text: 'Reading', description: 'Books, newspapers, tablets', icon: '📚' },
+                    { id: 'computer', text: 'Computer Work', description: 'Professional or personal computer use', icon: '💻' },
+                    { id: 'driving', text: 'Driving', description: 'Daily commuting and travel', icon: '🚗' },
+                    { id: 'sports', text: 'Sports/Recreation', description: 'Athletic activities and hobbies', icon: '⚡' },
+                    { id: 'crafts', text: 'Detail Work/Crafts', description: 'Fine motor activities requiring precision', icon: '✂️' }
+                ]
+            },
+            {
+                id: 5,
+                text: "Do you have any history of eye conditions or surgeries?",
+                help: "This information helps guide appropriate IOL recommendations.",
+                type: 'single',
+                options: [
+                    { id: 'none', text: 'No Significant History', description: 'No prior surgeries or major complications', icon: '✅' },
+                    { id: 'minor', text: 'Minor Conditions', description: 'Dry eye, allergies, or similar conditions', icon: '💧' },
+                    { id: 'significant', text: 'Previous Surgery/Conditions', description: 'Prior eye surgery, glaucoma, etc.', icon: '🏥' }
+                ]
+            },
+            {
+                id: 6,
+                text: "Do you have astigmatism?",
+                help: "Your eye doctor can confirm this during your examination.",
+                type: 'single',
+                options: [
+                    { id: 'yes-significant', text: 'Yes, Significant', description: 'Diagnosed with notable astigmatism', icon: '👁️' },
+                    { id: 'yes-mild', text: 'Yes, Mild', description: 'Some astigmatism present', icon: '👁️' },
+                    { id: 'no', text: 'No', description: 'No astigmatism', icon: '⭕' },
+                    { id: 'unknown', text: 'Not Sure', description: 'Need to check with eye doctor', icon: '❓' }
+                ]
+            },
+            {
+                id: 7,
+                text: "What is your age range?",
+                help: "Age can influence IOL selection and expected outcomes.",
+                type: 'single',
+                options: [
+                    { id: 'under-50', text: 'Under 50', description: 'Early presbyopia considerations', icon: '👤' },
+                    { id: '50-65', text: '50-65', description: 'Active lifestyle considerations', icon: '👤' },
+                    { id: '65-75', text: '65-75', description: 'Standard cataract surgery age', icon: '👤' },
+                    { id: 'over-75', text: 'Over 75', description: 'Senior lifestyle considerations', icon: '👤' }
+                ]
+            },
+            {
+                id: 8,
+                text: "How would you describe your overall health and healing ability?",
+                help: "This helps assess surgical candidacy and recovery expectations.",
+                type: 'single',
+                options: [
+                    { id: 'excellent', text: 'Excellent', description: 'Very healthy with good healing', icon: '❤️' },
+                    { id: 'good', text: 'Good', description: 'Generally healthy', icon: '❤️' },
+                    { id: 'fair', text: 'Fair', description: 'Some health considerations', icon: '❤️' },
+                    { id: 'poor', text: 'Poor', description: 'Multiple health issues', icon: '❤️' }
+                ]
+            }
+        ];
+
+        // Assessment State
+        let assessmentState = {
+            currentQuestion: 0,
+            totalQuestions: QUESTIONS.length,
+            answers: {},
+            isLoading: false,
+            isComplete: false,
+            results: null
+        };
+
+        // Storage Keys
+        const STORAGE_KEY = 'tecnis-iol-assessment';
+        const HISTORY_KEY = 'tecnis-iol-assessment-history';
+        const THEME_KEY = 'tecnis-iol-theme';
+
+        // DOM Elements
+        const progressSection = document.getElementById('progress-section');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const loadingState = document.getElementById('loading-state');
+        const questionContainer = document.getElementById('question-container');
+        const resultsContainer = document.getElementById('results-container');
+        const savedProgressNotification = document.getElementById('saved-progress-notification');
+        const announcements = document.getElementById('announcements');
+
+        // Theme Management
+        let currentTheme = localStorage.getItem(THEME_KEY) || 'system';
+        let systemMediaQuery = null;
+
+        function initializeTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeDropdown = document.getElementById('theme-dropdown');
+            const themeOptions = document.querySelectorAll('.theme-option');
+
+            // Set initial theme option states
+            updateThemeOptionStates();
+
+            // Theme toggle click
+            themeToggle.addEventListener('click', () => {
+                themeDropdown.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!themeToggle.contains(e.target) && !themeDropdown.contains(e.target)) {
+                    themeDropdown.classList.remove('active');
+                }
+            });
+
+            // Theme option clicks
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const theme = option.dataset.theme;
+                    setTheme(theme);
+                    themeDropdown.classList.remove('active');
+                });
+            });
+
+            // Initialize system theme listener
+            setupSystemThemeListener();
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem(THEME_KEY, theme);
+            applyTheme();
+            updateThemeOptionStates();
+        }
+
+        function applyTheme() {
+            const root = document.documentElement;
+            root.classList.remove('light', 'dark');
+
+            if (currentTheme === 'system') {
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                root.classList.add(systemTheme);
+            } else {
+                root.classList.add(currentTheme);
+            }
+        }
+
+        function setupSystemThemeListener() {
+            if (systemMediaQuery) {
+                systemMediaQuery.removeEventListener('change', handleSystemThemeChange);
+            }
+
+            if (currentTheme === 'system') {
+                systemMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                systemMediaQuery.addEventListener('change', handleSystemThemeChange);
+            }
+        }
+
+        function handleSystemThemeChange() {
+            if (currentTheme === 'system') {
+                applyTheme();
+            }
+        }
+
+        function updateThemeOptionStates() {
+            const themeOptions = document.querySelectorAll('.theme-option');
+            themeOptions.forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === currentTheme);
+            });
+        }
+
+        // Storage Functions
+        function saveToStorage(data) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    ...data,
+                    timestamp: new Date().toISOString()
+                }));
+            } catch (error) {
+                console.warn('Failed to save assessment to localStorage:', error);
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (!parsed.isComplete && (parsed.currentQuestion > 0 || Object.keys(parsed.answers || {}).length > 0)) {
+                        return {
+                            currentQuestion: parsed.currentQuestion || 0,
+                            totalQuestions: QUESTIONS.length,
+                            answers: parsed.answers || {},
+                            isLoading: false,
+                            isComplete: false,
+                            results: parsed.results
+                        };
+                    }
+                }
+            } catch (error) {
+                console.warn('Failed to load assessment from localStorage:', error);
+            }
+            return null;
+        }
+
+        function clearCurrentAssessment() {
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+            } catch (error) {
+                console.warn('Failed to clear current assessment:', error);
+            }
+        }
+
+        function saveCompletedAssessment(results, answers) {
+            try {
+                const history = getAssessmentHistory();
+                const newEntry = {
+                    id: Date.now().toString(),
+                    timestamp: new Date().toISOString(),
+                    results,
+                    answers
+                };
+                
+                const updatedHistory = [newEntry, ...history].slice(0, 10);
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+            } catch (error) {
+                console.warn('Failed to save assessment history:', error);
+            }
+        }
+
+        function getAssessmentHistory() {
+            try {
+                const stored = localStorage.getItem(HISTORY_KEY);
+                return stored ? JSON.parse(stored) : [];
+            } catch (error) {
+                console.warn('Failed to load assessment history:', error);
+                return [];
+            }
+        }
+
+        // Screen Reader Announcements
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.textContent = message;
+            announcements.appendChild(announcement);
+            
+            setTimeout(() => {
+                announcements.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Progress Functions
+        function updateProgress() {
+            const current = assessmentState.currentQuestion + 1;
+            const percentage = Math.round((current / assessmentState.totalQuestions) * 100);
+            
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `Question ${current} of ${assessmentState.totalQuestions} (${percentage}% complete)`;
+        }
+
+        // Answer Functions
+        function hasAnswer(questionId) {
+            const qId = questionId ?? assessmentState.currentQuestion + 1;
+            const answer = assessmentState.answers[qId];
+            return answer !== undefined && (Array.isArray(answer) ? answer.length > 0 : answer !== '');
+        }
+
+        function setAnswer(questionId, answer) {
+            assessmentState.answers[questionId] = answer;
+            saveToStorage(assessmentState);
+            renderCurrentQuestion();
+        }
+
+        // Navigation Functions
+        function nextQuestion() {
+            if (assessmentState.currentQuestion < assessmentState.totalQuestions - 1) {
+                showLoading();
+                
+                setTimeout(() => {
+                    assessmentState.currentQuestion++;
+                    hideLoading();
+                    renderCurrentQuestion();
+                    updateProgress();
+                    
+                    const progress = getProgress();
+                    announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
+                }, 800);
+            } else {
+                completeAssessment();
+            }
+        }
+
+        function previousQuestion() {
+            if (assessmentState.currentQuestion > 0) {
+                assessmentState.currentQuestion--;
+                renderCurrentQuestion();
+                updateProgress();
+                
+                const progress = getProgress();
+                announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
+            }
+        }
+
+        function getProgress() {
+            const current = assessmentState.currentQuestion + 1;
+            const percentage = Math.round((current / assessmentState.totalQuestions) * 100);
+            return { current, total: assessmentState.totalQuestions, percentage };
+        }
+
+        // Loading States
+        function showLoading() {
+            assessmentState.isLoading = true;
+            questionContainer.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            assessmentState.isLoading = false;
+            loadingState.classList.add('hidden');
+            questionContainer.classList.remove('hidden');
+        }
+
+        // Question Rendering
+        function renderCurrentQuestion() {
+            const question = QUESTIONS[assessmentState.currentQuestion];
+            const currentAnswer = assessmentState.answers[question.id];
+            
+            questionContainer.innerHTML = `
+                <div class="question-card fade-in">
+                    <div class="question-header">
+                        <div class="question-number">${assessmentState.currentQuestion + 1}</div>
+                        <div class="question-content">
+                            <h3 class="question-title">${question.text}</h3>
+                            <p class="question-help">${question.help}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="answer-options" role="${question.type === 'single' ? 'radiogroup' : 'group'}">
+                        ${question.options.map(option => `
+                            <div class="answer-option ${isSelected(option.id, currentAnswer, question.type) ? 'selected' : ''}" 
+                                 onclick="handleOptionClick('${option.id}', '${question.type}')">
+                                <div class="option-icon">
+                                    ${option.icon}
+                                </div>
+                                <div class="option-text">
+                                    <div class="option-title">${option.text}</div>
+                                    <div class="option-description">${option.description}</div>
+                                </div>
+                                <div class="option-selector ${question.type === 'single' ? 'radio' : 'checkbox'} ${isSelected(option.id, currentAnswer, question.type) ? 'selected' : ''}">
+                                    ${isSelected(option.id, currentAnswer, question.type) ? 
+                                        (question.type === 'single' ? 
+                                            '<div class="selector-indicator radio-indicator"></div>' : 
+                                            '<div style="color: white; font-size: 12px;">✓</div>'
+                                        ) : ''
+                                    }
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-secondary ${assessmentState.currentQuestion === 0 ? 'hidden' : ''}" 
+                                onclick="previousQuestion()" 
+                                ${assessmentState.currentQuestion === 0 ? 'disabled' : ''}>
+                            ← Previous
+                        </button>
+                        <button class="btn btn-primary" 
+                                onclick="nextQuestion()" 
+                                ${!hasAnswer() ? 'disabled' : ''}>
+                            ${assessmentState.currentQuestion === assessmentState.totalQuestions - 1 ? 'Complete Assessment' : 'Next →'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function isSelected(optionId, currentAnswer, questionType) {
+            if (questionType === 'single') {
+                return currentAnswer === optionId;
+            } else {
+                return Array.isArray(currentAnswer) && currentAnswer.includes(optionId);
+            }
+        }
+
+        function handleOptionClick(optionId, questionType) {
+            const questionId = assessmentState.currentQuestion + 1;
+            
+            if (questionType === 'single') {
+                setAnswer(questionId, optionId);
+            } else {
+                const currentAnswers = Array.isArray(assessmentState.answers[questionId]) ? assessmentState.answers[questionId] : [];
+                const newAnswers = currentAnswers.includes(optionId)
+                    ? currentAnswers.filter(id => id !== optionId)
+                    : [...currentAnswers, optionId];
+                setAnswer(questionId, newAnswers);
+            }
+        }
+
+        // Results Calculation
+        function calculateResults(answers) {
+            const scores = {
+                monofocal: 0,
+                multifocal: 0,
+                toric: 0,
+                extended: 0
+            };
+
+            // Question 1: Visual lifestyle need
+            const q1 = answers[1];
+            if (q1 === 'near-vision') {
+                scores.multifocal += 3;
+                scores.extended += 2;
+            } else if (q1 === 'distance-vision') {
+                scores.monofocal += 3;
+                scores.toric += 2;
+            } else if (q1 === 'balanced-vision') {
+                scores.multifocal += 2;
+                scores.extended += 3;
+            }
+
+            // Question 2: Glasses dependence
+            const q2 = answers[2];
+            if (q2 === 'very-important') {
+                scores.multifocal += 3;
+                scores.extended += 2;
+            } else if (q2 === 'somewhat-important') {
+                scores.extended += 3;
+                scores.multifocal += 1;
+            } else if (q2 === 'not-important') {
+                scores.monofocal += 3;
+            }
+
+            // Question 3: Night driving
+            const q3 = answers[3];
+            if (q3 === 'frequently') {
+                scores.monofocal += 2;
+                scores.toric += 2;
+            } else if (q3 === 'occasionally') {
+                scores.extended += 1;
+            } else if (q3 === 'rarely') {
+                scores.multifocal += 1;
+            }
+
+            // Question 6: Astigmatism
+            const q6 = answers[6];
+            if (q6 === 'yes-significant' || q6 === 'yes-mild') {
+                scores.toric += 4;
+            }
+
+            // Find the highest scoring IOL type
+            const maxScore = Math.max(...Object.values(scores));
+            const recommendedType = Object.entries(scores).find(([_, score]) => score === maxScore)?.[0] || 'monofocal';
+
+            // Map to actual IOL recommendations
+            const iolMapping = {
+                monofocal: {
+                    name: 'TECNIS® Monofocal IOL',
+                    benefits: [
+                        'Excellent distance vision quality',
+                        'Reduced risk of glare and halos',
+                        'Proven track record of safety',
+                        'Good option for active lifestyles'
+                    ]
+                },
+                multifocal: {
+                    name: 'TECNIS® Multifocal IOL',
+                    benefits: [
+                        'Excellent near and intermediate vision',
+                        'Reduced dependence on glasses',
+                        'High patient satisfaction rates',
+                        'Advanced optical design'
+                    ]
+                },
+                extended: {
+                    name: 'TECNIS® Symfony Extended Range IOL',
+                    benefits: [
+                        'Extended range of clear vision',
+                        'Reduced chromatic aberrations',
+                        'Good intermediate vision',
+                        'Lower incidence of halos'
+                    ]
+                },
+                toric: {
+                    name: 'TECNIS® Toric IOL',
+                    benefits: [
+                        'Corrects astigmatism effectively',
+                        'Improved distance vision quality',
+                        'Stable lens positioning',
+                        'Reduced dependence on glasses for distance'
+                    ]
+                }
+            };
+
+            const recommendation = iolMapping[recommendedType];
+            const matchScore = Math.min(95, Math.max(75, (maxScore / 15) * 100));
+
+            return {
+                primaryIOL: recommendation.name,
+                matchScore: Math.round(matchScore),
+                benefits: recommendation.benefits,
+                considerations: [
+                    'Results may vary based on individual eye anatomy',
+                    'Final recommendation should be made by your surgeon',
+                    'Multiple factors influence IOL selection'
+                ]
+            };
+        }
+
+        function completeAssessment() {
+            showLoading();
+            
+            setTimeout(() => {
+                const results = calculateResults(assessmentState.answers);
+                assessmentState.isComplete = true;
+                assessmentState.results = results;
+                
+                // Save completed assessment to history and clear current progress
+                saveCompletedAssessment(results, assessmentState.answers);
+                clearCurrentAssessment();
+                
+                hideLoading();
+                renderResults();
+                
+                announceToScreenReader('Assessment complete. Results are now displayed.');
+            }, 1500);
+        }
+
+        function renderResults() {
+            progressSection.classList.add('hidden');
+            questionContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const currentDate = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            resultsContainer.innerHTML = `
+                <!-- Print Header - Hidden on screen -->
+                <div class="print-header" style="display: none;">
+                    <h1>TECNIS® IOL Selection Tool</h1>
+                    <div class="subtitle">Patient Education Guide - Assessment Results</div>
+                </div>
+                
+                <div class="results-card">
+                    <div class="results-header">
+                        <div class="results-icon no-print">✓</div>
+                        <h2 class="results-title">Assessment Complete</h2>
+                        <p class="results-subtitle">Here are your personalized IOL recommendations</p>
+                    </div>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <h3>Recommended IOL Type</h3>
+                            <div class="result-row">
+                                <span class="result-label">Primary Recommendation:</span>
+                                <span class="result-value">${assessmentState.results.primaryIOL}</span>
+                            </div>
+                            <div class="result-row">
+                                <span class="result-label">Match Score:</span>
+                                <span class="result-value match-score">${assessmentState.results.matchScore}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Key Benefits</h3>
+                            <ul class="benefit-list">
+                                ${assessmentState.results.benefits.map(benefit => `
+                                    <li class="benefit-item">
+                                        <span class="benefit-indicator">✓</span>
+                                        <span>${benefit}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Important Considerations</h3>
+                        <ul class="consideration-list">
+                            ${assessmentState.results.considerations.map(consideration => `
+                                <li class="consideration-item">
+                                    <span class="consideration-indicator"></span>
+                                    <span>${consideration}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <!-- Print Footer - Hidden on screen -->
+                    <div class="print-footer" style="display: none;">
+                        <div class="print-disclaimer">
+                            <strong>Medical Disclaimer:</strong> This tool is for educational purposes only and should not replace professional medical advice. Please consult with your ophthalmologist or eye care professional for personalized IOL selection based on your individual needs and medical history.
+                        </div>
+                        <div class="print-timestamp">
+                            Assessment completed on: ${currentDate}
+                        </div>
+                    </div>
+                    
+                    <div class="navigation no-print">
+                        <button class="btn btn-secondary" onclick="handlePrint()">
+                            🖨️ Print Results
+                        </button>
+                        <button class="btn btn-outline" onclick="restartAssessment()">
+                            🔄 Start New Assessment
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Action Functions
+        function handlePrint() {
+            window.print();
+            announceToScreenReader('Print dialog opened');
+        }
+
+        function restartAssessment() {
+            if (confirm('Are you sure you want to start a new assessment? Your current progress will be lost.')) {
+                clearCurrentAssessment();
+                
+                assessmentState = {
+                    currentQuestion: 0,
+                    totalQuestions: QUESTIONS.length,
+                    answers: {},
+                    isLoading: false,
+                    isComplete: false,
+                    results: null
+                };
+                
+                // Reset UI
+                progressSection.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                questionContainer.classList.remove('hidden');
+                
+                renderCurrentQuestion();
+                updateProgress();
+                announceToScreenReader('Assessment restarted');
+            }
+        }
+
+        // Saved Progress Functions
+        function checkSavedProgress() {
+            const stored = loadFromStorage();
+            if (stored && (stored.currentQuestion > 0 || Object.keys(stored.answers).length > 0)) {
+                savedProgressNotification.classList.remove('hidden');
+            }
+        }
+
+        function resumeProgress() {
+            const stored = loadFromStorage();
+            if (stored) {
+                assessmentState = stored;
+                savedProgressNotification.classList.add('hidden');
+                renderCurrentQuestion();
+                updateProgress();
+                announceToScreenReader(`Resumed assessment at question ${stored.currentQuestion + 1}`);
+            }
+        }
+
+        function startFresh() {
+            clearCurrentAssessment();
+            assessmentState = {
+                currentQuestion: 0,
+                totalQuestions: QUESTIONS.length,
+                answers: {},
+                isLoading: false,
+                isComplete: false,
+                results: null
+            };
+            savedProgressNotification.classList.add('hidden');
+            renderCurrentQuestion();
+            updateProgress();
+            announceToScreenReader('Starting fresh assessment');
+        }
+
+        // Keyboard Navigation
+        function handleKeydown(event) {
+            // Skip if user is typing in an input field
+            if (event.target && event.target.tagName === 'INPUT') {
+                return;
+            }
+            
+            switch (event.key) {
+                case 'ArrowRight':
+                case 'n':
+                case 'N':
+                    if (hasAnswer() && !assessmentState.isLoading) {
+                        event.preventDefault();
+                        nextQuestion();
+                    }
+                    break;
+                    
+                case 'ArrowLeft':
+                case 'p':
+                case 'P':
+                    if (assessmentState.currentQuestion > 0 && !assessmentState.isLoading) {
+                        event.preventDefault();
+                        previousQuestion();
+                    }
+                    break;
+            }
+        }
+
+        // Initialization
+        function initialize() {
+            // Initialize theme
+            initializeTheme();
+            
+            // Add event listeners
+            document.addEventListener('keydown', handleKeydown);
+            document.getElementById('resume-progress').addEventListener('click', resumeProgress);
+            document.getElementById('start-fresh').addEventListener('click', startFresh);
+            
+            // Check for saved progress
+            checkSavedProgress();
+            
+            // Render initial state
+            if (!savedProgressNotification.classList.contains('hidden')) {
+                // Don't render question if showing saved progress notification
+            } else {
+                renderCurrentQuestion();
+                updateProgress();
+            }
+            
+            // Initial accessibility announcement
+            announceToScreenReader('TECNIS IOL Selection Tool loaded. Use navigation buttons or arrow keys to proceed.');
+        }
+
+        // Start the application when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+    </script>
+</body>
+</html>
