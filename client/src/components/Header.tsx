@@ -1,4 +1,5 @@
 import { Settings } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const Header = () => {
   const handleAccessibilityMenu = () => {
@@ -20,16 +21,20 @@ export const Header = () => {
             </div>
           </div>
           
-          <button 
-            onClick={handleAccessibilityMenu}
-            className="p-2 rounded-md hover:bg-primary-foreground/10 focus-ring transition-colors"
-            aria-label="Accessibility options"
-            aria-expanded="false"
-            aria-haspopup="true"
-            data-testid="button-accessibility-menu"
-          >
-            <Settings className="w-6 h-6" aria-hidden="true" />
-          </button>
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+            
+            <button 
+              onClick={handleAccessibilityMenu}
+              className="p-2 rounded-md hover:bg-primary-foreground/10 focus-ring transition-colors"
+              aria-label="Accessibility options"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-testid="button-accessibility-menu"
+            >
+              <Settings className="w-6 h-6" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </header>

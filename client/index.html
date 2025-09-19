@@ -15,6 +15,31 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
+    
+    <!-- Early theme script to prevent FOUC -->
+    <script>
+      (function() {
+        try {
+          const storageKey = 'tecnis-iol-theme';
+          const theme = localStorage.getItem(storageKey) || 'system';
+          const root = document.documentElement;
+          
+          root.classList.remove('light', 'dark');
+          
+          if (theme === 'system') {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches 
+              ? 'dark' 
+              : 'light';
+            root.classList.add(systemTheme);
+          } else {
+            root.classList.add(theme);
+          }
+        } catch (e) {
+          // Fallback to light theme if anything fails
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <!-- Skip Navigation Link for Screen Readers -->
