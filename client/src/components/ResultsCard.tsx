@@ -94,7 +94,7 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
       <div className="mt-8 flex flex-col sm:flex-row gap-4 no-print">
         <Button 
           onClick={onPrint}
-          variant="secondary"
+          variant="default"
           className="flex-1 focus-ring"
           aria-label="Print assessment results"
           data-testid="button-print"
