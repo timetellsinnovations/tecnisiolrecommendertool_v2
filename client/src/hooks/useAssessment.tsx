@@ -229,18 +229,13 @@ export const useAssessment = () => {
 
   const nextQuestion = useCallback(() => {
     if (state.currentQuestion < state.totalQuestions - 1) {
-      setState(prev => ({ ...prev, isLoading: true }));
+      setState(prev => ({
+        ...prev,
+        currentQuestion: prev.currentQuestion + 1
+      }));
       
-      setTimeout(() => {
-        setState(prev => ({
-          ...prev,
-          currentQuestion: prev.currentQuestion + 1,
-          isLoading: false
-        }));
-        
-        const progress = getProgress();
-        announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
-      }, 800);
+      const progress = getProgress();
+      announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
     } else {
       completeAssessment();
     }
@@ -369,23 +364,18 @@ export const useAssessment = () => {
   }, []);
 
   const completeAssessment = useCallback(() => {
-    setState(prev => ({ ...prev, isLoading: true }));
+    const results = calculateResults(state.answers);
+    setState(prev => ({
+      ...prev,
+      isComplete: true,
+      results
+    }));
     
-    setTimeout(() => {
-      const results = calculateResults(state.answers);
-      setState(prev => ({
-        ...prev,
-        isComplete: true,
-        isLoading: false,
-        results
-      }));
-      
-      // Save completed assessment to history and clear current progress
-      saveCompletedAssessment(results, state.answers);
-      clearCurrentAssessment();
-      
-      announceToScreenReader('Assessment complete. Results are now displayed.');
-    }, 1500);
+    // Save completed assessment to history and clear current progress
+    saveCompletedAssessment(results, state.answers);
+    clearCurrentAssessment();
+    
+    announceToScreenReader('Assessment complete. Results are now displayed.');
   }, [state.answers, calculateResults, announceToScreenReader]);
 
   const restartAssessment = useCallback(() => {
