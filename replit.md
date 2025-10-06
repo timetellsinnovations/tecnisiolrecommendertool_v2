@@ -37,11 +37,13 @@ Preferred communication style: Simple, everyday language.
 - **Connection**: Neon Database serverless integration
 
 ### Accessibility Features
-- **ARIA Support**: Comprehensive ARIA labels, roles, and properties
-- **Keyboard Navigation**: Full keyboard support with arrow key navigation
-- **Screen Reader**: Semantic HTML structure with proper heading hierarchy
+- **ARIA Support**: Comprehensive ARIA labels, roles, and properties with live region announcements
+- **Keyboard Navigation**: Full keyboard support with arrow key navigation (Left/Right arrows, P/N keys)
+- **Screen Reader**: Semantic HTML structure with proper heading hierarchy and contextual navigation labels
 - **Focus Management**: Custom focus ring styling and logical tab order
-- **Responsive Design**: Mobile-first approach with breakpoint-based layouts
+- **Responsive Design**: Mobile-first approach optimized for screens as small as 320px and landscape orientations
+- **Progress Indicators**: Enhanced with descriptive aria-labels and live announcements for screen readers
+- **Link Accessibility**: Visited link styling with visual distinction and comprehensive aria-labels
 
 ### Medical Compliance
 - **Disclaimer System**: Prominent medical disclaimer banner with regulatory compliance
