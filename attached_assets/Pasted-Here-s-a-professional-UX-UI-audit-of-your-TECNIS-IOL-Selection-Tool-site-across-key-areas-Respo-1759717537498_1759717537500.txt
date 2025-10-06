@@ -1,0 +1,35 @@
+Here’s a professional UX/UI audit of your TECNIS® IOL Selection Tool site across key areas:
+
+**Responsiveness**
+- The layout adapts well to different screen sizes, with core elements such as headings, questions, and options maintaining readability across devices.
+- Navigation buttons (Previous/Next) and progress indicators are legible and spaced correctly for both desktop and mobile users.
+- Recommendation: Test the tool on extra-small screens and in landscape mode to ensure no content overlaps or requires horizontal scrolling. Use CSS media queries to further optimize spacing for mobile breakpoints if needed.
+
+**Accessibility**
+- There is a “Skip to main content” link, which improves keyboard navigation—excellent for accessibility.
+- Radio input options include ARIA labels, supporting screen readers.
+- Color contrast between text and background meets accessibility guidelines, ensuring readability for most users.
+- Recommendations:
+    - Verify that all form controls (inputs, radios, buttons) are keyboard-navigable and have visible focus states.
+    - Ensure headings follow proper semantic order (h1, h2, h3) for screen readers.
+    - Check that progress indicators and navigation labels (like “Previous” and “Next”) have accessible labels and can be read by assistive technologies.
+
+**Color Styling**
+- The color palette is clean and medical-professional, using blues, greys, and white for trust and clarity.
+- Contrast is strong enough for good readability under various lighting conditions.
+- Recommendations:
+    - Ensure interactive elements (like buttons, links) have a distinct, accessible hover/focus color.
+    - Use a consistent accent color for action items (progress bar, selections) for cohesive branding.
+    - If not present, provide a high-contrast or dark mode toggle for users with visual impairments.
+
+**General Professionalism**
+- Content and branding are clean, appropriate, and medical-grade.
+- Wording on disclaimers and education is clear and authoritative.
+- Recommendations:
+    - If possible, add subtle transition effects for select changes and navigation to enhance the polished feel.
+    - Check link styling—ensure visited links are visually distinguished if the flow allows for backtracking.
+
+With these actionable tweaks, your tool will be highly professional, accessible, and user-friendly for both patients and clinicians.[1]
+
+[1](https://042618e1-f494-4a2c-9cc9-0d1f321d6dee-00-bfi3qpiny6xk.picard.replit.dev/)
+[2](https://042618e1-f494-4a2c-9cc9-0d1f321d6dee-00-bfi3qpiny6xk.picard.replit.dev/)
