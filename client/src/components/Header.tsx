@@ -26,7 +26,7 @@ export const Header = () => {
             
             <button 
               onClick={handleAccessibilityMenu}
-              className="p-1.5 sm:p-2 rounded-md hover:bg-primary-foreground/10 focus-ring transition-colors"
+              className="p-1.5 sm:p-2 rounded-md hover:bg-primary-foreground/10 bg-gradient-to-br from-primary-foreground/20 to-primary-foreground/5 backdrop-blur-sm focus-ring transition-colors"
               aria-label="Accessibility options"
               aria-expanded="false"
               aria-haspopup="true"

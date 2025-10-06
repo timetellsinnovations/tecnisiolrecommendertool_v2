@@ -37,9 +37,9 @@ export function ThemeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button 
-          variant="outline" 
+          variant="ghost" 
           size="sm"
-          className="h-9 w-9 px-0 focus-ring"
+          className="h-9 w-9 px-0 focus-ring hover:bg-primary-foreground/20 bg-gradient-to-br from-primary-foreground/20 to-primary-foreground/5 backdrop-blur-sm transition-all duration-200"
           aria-label={`Current theme: ${getThemeLabel()}. Click to change theme`}
           data-testid="button-theme-toggle"
         >
