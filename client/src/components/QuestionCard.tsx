@@ -50,6 +50,8 @@ export const QuestionCard = ({
 }: QuestionCardProps) => {
   const helpTextId = `question-${question.id}-help`;
   const questionTextId = `question-${question.id}-text`;
+  const previousLabel = canGoPrevious ? `Go to previous question (question ${questionNumber - 1})` : 'Go to previous question';
+  const nextLabel = canGoNext ? `Go to next question (question ${questionNumber + 1})` : 'Complete current question to proceed';
 
   const handleSingleSelect = (optionId: string) => {
     onAnswerChange(optionId);
@@ -73,23 +75,23 @@ export const QuestionCard = ({
 
   return (
     <div className="animate-fade-in">
-      <article className="bg-card dark:bg-card rounded-lg shadow-lg p-6 sm:p-8 mb-8" role="group" aria-labelledby={questionTextId}>
-        <header className="flex items-start mb-6 pb-4 border-b border-border">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full flex items-center justify-center font-bold mr-4 flex-shrink-0">
+      <article className="bg-card dark:bg-card rounded-lg shadow-lg p-3 sm:p-6 md:p-8 mb-4 sm:mb-8" role="group" aria-labelledby={questionTextId}>
+        <header className="flex items-start mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-border">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full flex items-center justify-center font-bold mr-2 sm:mr-4 flex-shrink-0 text-sm sm:text-base">
             <span data-testid="text-question-number">{questionNumber}</span>
           </div>
-          <div className="flex-1">
-            <h3 id={questionTextId} className="text-xl font-semibold text-card-foreground mb-2" data-testid="text-question">
+          <div className="flex-1 min-w-0">
+            <h3 id={questionTextId} className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-1 sm:mb-2" data-testid="text-question">
               {question.text}
             </h3>
-            <p id={helpTextId} className="text-sm text-muted-foreground" data-testid="text-question-help">
+            <p id={helpTextId} className="text-xs sm:text-sm text-muted-foreground" data-testid="text-question-help">
               {question.help}
             </p>
           </div>
         </header>
         
         <div 
-          className="space-y-4" 
+          className="space-y-2 sm:space-y-3 md:space-y-4" 
           role={question.type === 'single' ? 'radiogroup' : 'group'} 
           aria-labelledby={questionTextId}
           aria-describedby={helpTextId}
@@ -113,28 +115,28 @@ export const QuestionCard = ({
                   aria-labelledby={`${optionTitleId} ${optionDescriptionId}`}
                   data-testid={`input-${option.id}`}
                 />
-                <div className={`flex items-center p-4 bg-muted hover:bg-card hover:shadow-md border-2 border-transparent ${
+                <div className={`flex items-center p-2.5 sm:p-3 md:p-4 bg-muted hover:bg-card hover:shadow-md border-2 border-transparent ${
                   selected ? 'border-primary bg-primary/5 dark:bg-primary/10' : ''
                 } rounded-lg cursor-pointer transition-all duration-200 focus-ring peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring`}>
-                  <div className="w-12 h-12 bg-card dark:bg-card rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    {IconComponent && <IconComponent className="w-6 h-6 text-muted-foreground" aria-hidden="true" />}
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-card dark:bg-card rounded-lg flex items-center justify-center mr-2 sm:mr-3 md:mr-4 flex-shrink-0">
+                    {IconComponent && <IconComponent className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-muted-foreground" aria-hidden="true" />}
                   </div>
-                  <div className="flex-1">
-                    <h4 id={optionTitleId} className="font-medium text-card-foreground" data-testid={`text-option-title-${option.id}`}>
+                  <div className="flex-1 min-w-0">
+                    <h4 id={optionTitleId} className="font-medium text-card-foreground text-sm sm:text-base" data-testid={`text-option-title-${option.id}`}>
                       {option.text}
                     </h4>
-                    <p id={optionDescriptionId} className="text-sm text-muted-foreground mt-1" data-testid={`text-option-description-${option.id}`}>
+                    <p id={optionDescriptionId} className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1" data-testid={`text-option-description-${option.id}`}>
                       {option.description}
                     </p>
                   </div>
-                  <div className={`w-5 h-5 border-2 border-muted-foreground ${
+                  <div className={`w-4 h-4 sm:w-5 sm:h-5 border-2 border-muted-foreground ${
                     question.type === 'single' ? 'rounded-full' : 'rounded'
-                  } ${selected ? 'border-primary bg-primary' : ''} flex items-center justify-center ml-4`}>
+                  } ${selected ? 'border-primary bg-primary' : ''} flex items-center justify-center ml-2 sm:ml-4 flex-shrink-0`}>
                     {selected && (
                       <div className={`${
-                        question.type === 'single' ? 'w-2 h-2 bg-primary-foreground rounded-full' : 'w-3 h-3'
+                        question.type === 'single' ? 'w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-foreground rounded-full' : 'w-2.5 h-2.5 sm:w-3 sm:h-3'
                       }`}>
-                        {question.type === 'multi' && <Check className="w-3 h-3 text-primary-foreground" />}
+                        {question.type === 'multi' && <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary-foreground" />}
                       </div>
                     )}
                   </div>
@@ -144,13 +146,13 @@ export const QuestionCard = ({
           })}
         </div>
         
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 sm:justify-between">
+        <div className="mt-4 sm:mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-between">
           <Button 
             onClick={onPrevious}
             disabled={!canGoPrevious}
             variant="secondary"
-            className="focus-ring"
-            aria-label="Go to previous question"
+            className="focus-ring w-full sm:w-auto"
+            aria-label={previousLabel}
             data-testid="button-previous"
           >
             <ChevronLeft className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -160,8 +162,8 @@ export const QuestionCard = ({
           <Button 
             onClick={onNext}
             disabled={!canGoNext}
-            className="focus-ring"
-            aria-label="Go to next question"
+            className="focus-ring w-full sm:w-auto"
+            aria-label={nextLabel}
             data-testid="button-next"
           >
             Next

@@ -13,9 +13,36 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-card-foreground mb-4">Important Information</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary focus-ring">Patient Information</a></li>
-              <li><a href="#" className="hover:text-primary focus-ring">Clinical Studies</a></li>
-              <li><a href="#" className="hover:text-primary focus-ring">Find a Doctor</a></li>
+              <li>
+                <a 
+                  href="#" 
+                  className="hover:text-primary focus-ring" 
+                  data-testid="link-patient-info"
+                  aria-label="Patient Information"
+                >
+                  Patient Information
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="hover:text-primary focus-ring" 
+                  data-testid="link-clinical-studies"
+                  aria-label="Clinical Studies"
+                >
+                  Clinical Studies
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="hover:text-primary focus-ring" 
+                  data-testid="link-find-doctor"
+                  aria-label="Find a Doctor"
+                >
+                  Find a Doctor
+                </a>
+              </li>
             </ul>
           </div>
           

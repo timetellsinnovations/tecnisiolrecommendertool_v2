@@ -18,48 +18,48 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
   });
 
   return (
-    <div className="animate-fade-in bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-6 sm:p-8 page-break-inside-avoid results-card" role="region" aria-labelledby="results-title" data-testid="results-card">
+    <div className="animate-fade-in bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 page-break-inside-avoid results-card" role="region" aria-labelledby="results-title" data-testid="results-card">
       {/* Print Header - Hidden on screen */}
       <div className="hidden print:block print-header">
         <h1>TECNIS® IOL Selection Tool</h1>
         <div className="subtitle">Patient Education Guide - Assessment Results</div>
       </div>
       
-      <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center print:hidden">
-          <CheckCircle className="w-10 h-10 text-accent-foreground" aria-hidden="true" />
+      <div className="text-center mb-4 sm:mb-6 md:mb-8">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-accent rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center print:hidden">
+          <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-accent-foreground" aria-hidden="true" />
         </div>
-        <h2 id="results-title" className="text-2xl font-bold text-card-foreground mb-2 results-title" data-testid="text-results-title">
+        <h2 id="results-title" className="text-xl sm:text-2xl font-bold text-card-foreground mb-1 sm:mb-2 results-title" data-testid="text-results-title">
           Assessment Complete
         </h2>
-        <p className="text-muted-foreground">Here are your personalized IOL recommendations</p>
+        <p className="text-sm sm:text-base text-muted-foreground">Here are your personalized IOL recommendations</p>
       </div>
       
-      <div className="grid gap-6 md:grid-cols-2 results-grid">
-        <div className="bg-card dark:bg-card rounded-lg p-6 shadow-md iol-recommendation">
-          <h3 className="text-lg font-semibold text-card-foreground mb-3">Recommended IOL Type</h3>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Primary Recommendation:</span>
-              <span className="font-medium text-card-foreground iol-name" data-testid="text-primary-iol">
+      <div className="grid gap-3 sm:gap-4 md:gap-6 md:grid-cols-2 results-grid">
+        <div className="bg-card dark:bg-card rounded-lg p-3 sm:p-4 md:p-6 shadow-md iol-recommendation">
+          <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Recommended IOL Type</h3>
+          <div className="space-y-1.5 sm:space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs sm:text-sm text-muted-foreground">Primary Recommendation:</span>
+              <span className="font-medium text-card-foreground iol-name text-xs sm:text-sm text-right" data-testid="text-primary-iol">
                 {results.primaryIOL}
               </span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Match Score:</span>
-              <span className="font-medium text-accent match-score" data-testid="text-match-score">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs sm:text-sm text-muted-foreground">Match Score:</span>
+              <span className="font-medium text-accent match-score text-xs sm:text-sm" data-testid="text-match-score">
                 {results.matchScore}%
               </span>
             </div>
           </div>
         </div>
         
-        <div className="bg-card dark:bg-card rounded-lg p-6 shadow-md iol-recommendation">
-          <h3 className="text-lg font-semibold text-card-foreground mb-3">Key Benefits</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground benefits-list" data-testid="list-benefits">
+        <div className="bg-card dark:bg-card rounded-lg p-3 sm:p-4 md:p-6 shadow-md iol-recommendation">
+          <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Key Benefits</h3>
+          <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground benefits-list" data-testid="list-benefits">
             {results.benefits.map((benefit, index) => (
               <li key={index} className="flex items-start" data-testid={`text-benefit-${index}`}>
-                <Check className="w-4 h-4 text-accent mt-0.5 mr-2 flex-shrink-0 print:hidden" aria-hidden="true" />
+                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0 print:hidden" aria-hidden="true" />
                 <span>{benefit}</span>
               </li>
             ))}
@@ -68,12 +68,12 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
       </div>
       
       {results.considerations && results.considerations.length > 0 && (
-        <div className="mt-6 bg-card dark:bg-card rounded-lg p-6 shadow-md iol-recommendation">
-          <h3 className="text-lg font-semibold text-card-foreground mb-3">Important Considerations</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground considerations-list" data-testid="list-considerations">
+        <div className="mt-3 sm:mt-4 md:mt-6 bg-card dark:bg-card rounded-lg p-3 sm:p-4 md:p-6 shadow-md iol-recommendation">
+          <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Important Considerations</h3>
+          <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground considerations-list" data-testid="list-considerations">
             {results.considerations.map((consideration, index) => (
               <li key={index} className="flex items-start" data-testid={`text-consideration-${index}`}>
-                <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0 print:hidden" aria-hidden="true" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full mt-1.5 sm:mt-2 mr-2 sm:mr-3 flex-shrink-0 print:hidden" aria-hidden="true" />
                 <span>{consideration}</span>
               </li>
             ))}
@@ -91,26 +91,26 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
         </div>
       </div>
       
-      <div className="mt-8 flex flex-col sm:flex-row gap-4 no-print">
+      <div className="mt-4 sm:mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 no-print">
         <Button 
           onClick={onPrint}
           variant="default"
-          className="flex-1 focus-ring"
+          className="flex-1 focus-ring text-sm sm:text-base"
           aria-label="Print assessment results"
           data-testid="button-print"
         >
-          <Printer className="w-5 h-5 mr-2" aria-hidden="true" />
+          <Printer className="w-4 h-4 sm:w-5 sm:h-5 mr-2" aria-hidden="true" />
           Print Results
         </Button>
         
         <Button 
           onClick={onRestart}
           variant="outline"
-          className="flex-1 focus-ring"
+          className="flex-1 focus-ring text-sm sm:text-base"
           aria-label="Start new assessment"
           data-testid="button-restart"
         >
-          <RotateCcw className="w-5 h-5 mr-2" aria-hidden="true" />
+          <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 mr-2" aria-hidden="true" />
           Start New Assessment
         </Button>
       </div>
