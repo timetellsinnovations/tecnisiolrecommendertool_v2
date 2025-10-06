@@ -1,12 +1,7 @@
-import { Settings } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { AccessibilityMenu } from '@/components/AccessibilityMenu';
 
 export const Header = () => {
-  const handleAccessibilityMenu = () => {
-    // TODO: Implement accessibility menu with font size, contrast options
-    console.log('Accessibility menu activated');
-  };
-
   return (
     <header className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground sticky top-0 z-40 shadow-lg" role="banner">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
@@ -23,17 +18,7 @@ export const Header = () => {
           
           <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
             <ThemeToggle />
-            
-            <button 
-              onClick={handleAccessibilityMenu}
-              className="p-1.5 sm:p-2 rounded-md hover:bg-primary-foreground/10 bg-gradient-to-br from-primary-foreground/20 to-primary-foreground/5 backdrop-blur-sm focus-ring transition-colors"
-              aria-label="Accessibility options"
-              aria-expanded="false"
-              aria-haspopup="true"
-              data-testid="button-accessibility-menu"
-            >
-              <Settings className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
-            </button>
+            <AccessibilityMenu />
           </div>
         </div>
       </div>

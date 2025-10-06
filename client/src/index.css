@@ -77,6 +77,61 @@
   }
 }
 
+/* Accessibility Settings */
+
+/* Font Size Adjustments */
+.font-size-normal {
+  font-size: 16px;
+}
+
+.font-size-large {
+  font-size: 18px;
+}
+
+.font-size-large body {
+  line-height: 1.7;
+}
+
+.font-size-extra-large {
+  font-size: 20px;
+}
+
+.font-size-extra-large body {
+  line-height: 1.8;
+}
+
+/* High Contrast Mode */
+.contrast-high {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 0%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 0%);
+  --muted: hsl(0 0% 95%);
+  --muted-foreground: hsl(0 0% 20%);
+  --border: hsl(0 0% 0%);
+  --input: hsl(0 0% 0%);
+}
+
+.contrast-high.dark {
+  --background: hsl(0 0% 0%);
+  --foreground: hsl(0 0% 100%);
+  --card: hsl(0 0% 10%);
+  --card-foreground: hsl(0 0% 100%);
+  --muted: hsl(0 0% 15%);
+  --muted-foreground: hsl(0 0% 85%);
+  --border: hsl(0 0% 100%);
+  --input: hsl(0 0% 100%);
+}
+
+/* Reduced Motion */
+.motion-reduced *,
+.motion-reduced *::before,
+.motion-reduced *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
 @layer components {
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
