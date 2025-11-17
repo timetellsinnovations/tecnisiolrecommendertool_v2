@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is an interactive web application designed to help patients understand and select appropriate intraocular lenses (IOLs) through a comprehensive assessment tool. The application guides users through a series of questions about their visual needs, lifestyle preferences, and activities to provide personalized IOL recommendations. Built as a modern React application with Express.js backend, it features a responsive design optimized for accessibility and medical compliance.
+This is an interactive web application designed to help patients understand and select appropriate intraocular lenses (IOLs) through a comprehensive 5-question assessment tool. The application guides users through questions about their activities, glasses preferences, night driving habits, eye health history, and astigmatism to provide personalized IOL recommendations from the current TECNIS product lineup (Eyhance, PureSee, and Odyssey series). Built as a modern React application with Express.js backend, it features a responsive design optimized for accessibility and medical compliance.
 
 ## User Preferences
 
@@ -44,12 +44,27 @@ Preferred communication style: Simple, everyday language.
 - **Responsive Design**: Mobile-first approach optimized for screens as small as 320px and landscape orientations
 - **Progress Indicators**: Enhanced with descriptive aria-labels and live announcements for screen readers
 - **Link Accessibility**: Visited link styling with visual distinction and comprehensive aria-labels
+- **Global Accessibility Menu**: Settings for high contrast, larger text, reduced motion - stored in localStorage
 
 ### Medical Compliance
 - **Disclaimer System**: Prominent medical disclaimer banner with regulatory compliance
-- **Progressive Disclosure**: Stepped assessment flow with help text and explanations
-- **Result Presentation**: Clear IOL recommendations with benefits and considerations
+- **Progressive Disclosure**: Stepped 5-question assessment flow with help text and explanations
+- **Result Presentation**: Clear IOL recommendations with patient-friendly benefits and consolidated considerations
 - **Print Support**: Print-optimized styling for patient records
+- **Current TECNIS Products**: Eyhance (standard monofocal), Eyhance Toric, PureSee (intermediate EDOF), PureSee Toric, Odyssey (full multifocal), Odyssey Toric
+
+### Assessment Logic
+- **Question Flow**: (1) Activities → (2) Glasses preference → (3) Night driving → (4) Eye history → (5) Astigmatism
+- **Decision Criteria**: 
+  - Eyhance: Comfortable with glasses OR significant eye history (safest option)
+  - PureSee: Wants less glasses + intermediate activities (sports, driving, night driving)
+  - Odyssey: Hates glasses + near activities (reading, computer, crafts)
+  - Toric variants: Automatically applied when astigmatism is present
+  - Edge case handling: Unclear activity patterns default to Eyhance (safest recommendation)
+
+### Deployment Configuration
+- **Platform**: Configured for Vercel deployment with vercel.json and .vercelignore files
+- **Build**: Production builds exclude development files and node_modules
 
 ## External Dependencies
 
