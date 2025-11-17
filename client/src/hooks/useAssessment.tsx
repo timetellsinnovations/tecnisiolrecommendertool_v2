@@ -4,24 +4,27 @@ import { AssessmentState, Question, AssessmentAnswers, AssessmentResults } from 
 const QUESTIONS: Question[] = [
   {
     id: 1,
-    text: "What is your primary visual lifestyle need?",
-    help: "Consider your daily activities and what vision distances are most important to you.",
-    type: 'single',
+    text: "Which activities are most important to your daily routine?",
+    help: "Select all that apply to your lifestyle.",
+    type: 'multi',
     options: [
-      { id: 'near-vision', text: 'Near Vision Priority', description: 'Reading, computer work, and close-up tasks', icon: 'book' },
-      { id: 'distance-vision', text: 'Distance Vision Priority', description: 'Driving, sports, and far-away activities', icon: 'eye' },
-      { id: 'balanced-vision', text: 'Balanced Vision', description: 'Equal importance for near and distance activities', icon: 'globe' }
+      { id: 'reading', text: 'Reading', description: 'Books, newspapers, tablets', icon: 'book-open' },
+      { id: 'computer', text: 'Computer Work', description: 'Professional or personal computer use', icon: 'monitor' },
+      { id: 'driving', text: 'Driving', description: 'Daily commuting and travel', icon: 'car' },
+      { id: 'sports', text: 'Sports/Recreation', description: 'Athletic activities and hobbies', icon: 'activity' },
+      { id: 'crafts', text: 'Detail Work/Crafts', description: 'Fine motor activities requiring precision', icon: 'scissors' },
+      { id: 'not-sure', text: 'Not Sure', description: 'Need help determining', icon: 'help-circle' }
     ]
   },
   {
     id: 2,
-    text: "How important is it to minimize your dependence on glasses?",
+    text: "How do you feel about wearing glasses after cataract surgery?",
     help: "Consider your lifestyle preferences and daily activities.",
     type: 'single',
     options: [
-      { id: 'very-important', text: 'Very Important', description: 'I strongly prefer not to wear glasses', icon: 'target' },
-      { id: 'somewhat-important', text: 'Somewhat Important', description: 'I would like reduced dependence on glasses', icon: 'trending-up' },
-      { id: 'not-important', text: 'Not Important', description: 'I am comfortable wearing glasses', icon: 'glasses' }
+      { id: 'hate-glasses', text: 'I hate wearing glasses', description: 'I strongly want to be glasses-free', icon: 'x-circle' },
+      { id: 'nice-not-to-wear', text: 'It would be nice not to wear glasses', description: 'I prefer less dependence on glasses', icon: 'smile' },
+      { id: 'dont-mind', text: 'I do not mind wearing glasses', description: 'I am comfortable with glasses', icon: 'glasses' }
     ]
   },
   {
@@ -37,19 +40,6 @@ const QUESTIONS: Question[] = [
   },
   {
     id: 4,
-    text: "Which activities are most important to your daily routine?",
-    help: "Select all that apply to your lifestyle.",
-    type: 'multi',
-    options: [
-      { id: 'reading', text: 'Reading', description: 'Books, newspapers, tablets', icon: 'book-open' },
-      { id: 'computer', text: 'Computer Work', description: 'Professional or personal computer use', icon: 'monitor' },
-      { id: 'driving', text: 'Driving', description: 'Daily commuting and travel', icon: 'car' },
-      { id: 'sports', text: 'Sports/Recreation', description: 'Athletic activities and hobbies', icon: 'activity' },
-      { id: 'crafts', text: 'Detail Work/Crafts', description: 'Fine motor activities requiring precision', icon: 'scissors' }
-    ]
-  },
-  {
-    id: 5,
     text: "Do you have any history of eye conditions or surgeries?",
     help: "This information helps guide appropriate IOL recommendations.",
     type: 'single',
@@ -60,39 +50,14 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 6,
+    id: 5,
     text: "Do you have astigmatism?",
     help: "Your eye doctor can confirm this during your examination.",
     type: 'single',
     options: [
-      { id: 'yes-significant', text: 'Yes, Significant', description: 'Diagnosed with notable astigmatism', icon: 'eye' },
-      { id: 'yes-mild', text: 'Yes, Mild', description: 'Some astigmatism present', icon: 'eye' },
-      { id: 'no', text: 'No', description: 'No astigmatism', icon: 'circle' },
-      { id: 'unknown', text: 'Not Sure', description: 'Need to check with eye doctor', icon: 'help-circle' }
-    ]
-  },
-  {
-    id: 7,
-    text: "What is your age range?",
-    help: "Age can influence IOL selection and expected outcomes.",
-    type: 'single',
-    options: [
-      { id: 'under-50', text: 'Under 50', description: 'Early presbyopia considerations', icon: 'user' },
-      { id: '50-65', text: '50-65', description: 'Active lifestyle considerations', icon: 'user' },
-      { id: '65-75', text: '65-75', description: 'Standard cataract surgery age', icon: 'user' },
-      { id: 'over-75', text: 'Over 75', description: 'Senior lifestyle considerations', icon: 'user' }
-    ]
-  },
-  {
-    id: 8,
-    text: "How would you describe your overall health and healing ability?",
-    help: "This helps assess surgical candidacy and recovery expectations.",
-    type: 'single',
-    options: [
-      { id: 'excellent', text: 'Excellent', description: 'Very healthy with good healing', icon: 'heart' },
-      { id: 'good', text: 'Good', description: 'Generally healthy', icon: 'heart' },
-      { id: 'fair', text: 'Fair', description: 'Some health considerations', icon: 'heart' },
-      { id: 'poor', text: 'Poor', description: 'Multiple health issues', icon: 'heart' }
+      { id: 'yes', text: 'Yes', description: 'I have been diagnosed with astigmatism', icon: 'eye' },
+      { id: 'no', text: 'No', description: 'I do not have astigmatism', icon: 'circle' },
+      { id: 'not-sure', text: 'Not Sure', description: 'Need to check with eye doctor', icon: 'help-circle' }
     ]
   }
 ];
@@ -227,138 +192,119 @@ export const useAssessment = () => {
     return answer !== undefined && (Array.isArray(answer) ? answer.length > 0 : answer !== '');
   }, [state.answers, state.currentQuestion]);
 
-  const nextQuestion = useCallback(() => {
-    if (state.currentQuestion < state.totalQuestions - 1) {
-      setState(prev => ({
-        ...prev,
-        currentQuestion: prev.currentQuestion + 1
-      }));
-      
-      const progress = getProgress();
-      announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
-    } else {
-      completeAssessment();
-    }
-  }, [state.currentQuestion, state.totalQuestions, getProgress, announceToScreenReader]);
-
-  const previousQuestion = useCallback(() => {
-    if (state.currentQuestion > 0) {
-      setState(prev => ({
-        ...prev,
-        currentQuestion: prev.currentQuestion - 1
-      }));
-      
-      const progress = getProgress();
-      announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
-    }
-  }, [state.currentQuestion, getProgress, announceToScreenReader]);
-
   const calculateResults = useCallback((answers: AssessmentAnswers): AssessmentResults => {
-    // Simple scoring algorithm based on answers
-    const scores = {
-      monofocal: 0,
-      multifocal: 0,
-      toric: 0,
-      extended: 0
-    };
+    // Get answers
+    const activities = answers[1] as string[] || [];
+    const glassesFeeling = answers[2] as string;
+    const nightDriving = answers[3] as string;
+    const eyeHistory = answers[4] as string;
+    const astigmatism = answers[5] as string;
 
-    // Question 1: Visual lifestyle need
-    const q1 = answers[1] as string;
-    if (q1 === 'near-vision') {
-      scores.multifocal += 3;
-      scores.extended += 2;
-    } else if (q1 === 'distance-vision') {
-      scores.monofocal += 3;
-      scores.toric += 2;
-    } else if (q1 === 'balanced-vision') {
-      scores.multifocal += 2;
-      scores.extended += 3;
+    // Determine if patient has astigmatism
+    const hasAstigmatism = astigmatism === 'yes';
+
+    // Analyze activities for near vs intermediate/distance focus
+    const nearActivities = activities.filter(a => 
+      ['reading', 'computer', 'crafts'].includes(a)
+    ).length;
+    const intermediateActivities = activities.filter(a => 
+      ['sports', 'driving'].includes(a)
+    ).length;
+
+    // Decision tree based on reviewer criteria - requires activity alignment
+    let baseModel: 'eyhance' | 'puresee' | 'odyssey';
+
+    // Check for significant eye history first (Eyhance is safest option)
+    if (eyeHistory === 'significant') {
+      baseModel = 'eyhance';
+    }
+    // Hate glasses + near activities → Odyssey
+    else if (glassesFeeling === 'hate-glasses' && nearActivities > 0) {
+      baseModel = 'odyssey';
+    }
+    // Nice not to wear + intermediate activities → PureSee
+    else if (glassesFeeling === 'nice-not-to-wear' && (intermediateActivities > 0 || nightDriving === 'frequently' || nightDriving === 'occasionally')) {
+      baseModel = 'puresee';
+    }
+    // Don't mind glasses → Eyhance (safe, reliable option)
+    else if (glassesFeeling === 'dont-mind') {
+      baseModel = 'eyhance';
+    }
+    // All other cases → Eyhance (safest default for unclear activity patterns)
+    else {
+      baseModel = 'eyhance';
     }
 
-    // Question 2: Glasses dependence
-    const q2 = answers[2] as string;
-    if (q2 === 'very-important') {
-      scores.multifocal += 3;
-      scores.extended += 2;
-    } else if (q2 === 'somewhat-important') {
-      scores.extended += 3;
-      scores.multifocal += 1;
-    } else if (q2 === 'not-important') {
-      scores.monofocal += 3;
-    }
-
-    // Question 3: Night driving
-    const q3 = answers[3] as string;
-    if (q3 === 'frequently') {
-      scores.monofocal += 2;
-      scores.toric += 2;
-    } else if (q3 === 'occasionally') {
-      scores.extended += 1;
-    } else if (q3 === 'rarely') {
-      scores.multifocal += 1;
-    }
-
-    // Question 6: Astigmatism
-    const q6 = answers[6] as string;
-    if (q6 === 'yes-significant' || q6 === 'yes-mild') {
-      scores.toric += 4;
-    }
-
-    // Find the highest scoring IOL type
-    const maxScore = Math.max(...Object.values(scores));
-    const recommendedType = Object.entries(scores).find(([_, score]) => score === maxScore)?.[0] || 'monofocal';
-
-    // Map to actual IOL recommendations
+    // Map to IOL recommendations with patient-friendly language
     const iolMapping = {
-      monofocal: {
-        name: 'TECNIS® Monofocal IOL',
-        benefits: [
-          'Excellent distance vision quality',
-          'Reduced risk of glare and halos',
-          'Proven track record of safety',
-          'Good option for active lifestyles'
+      eyhance: {
+        name: hasAstigmatism ? 'TECNIS® Eyhance™ Toric II IOL' : 'TECNIS® Eyhance™ IOL',
+        benefits: hasAstigmatism ? [
+          'Clear distance vision for driving and outdoor activities',
+          'Improved arm\'s length vision for phones, dashboards, and cooking',
+          'Corrects astigmatism for sharper, clearer vision',
+          'Low risk of halos and glare at night',
+          'Exceptional lens stability and positioning'
+        ] : [
+          'Clear distance vision for driving and outdoor activities',
+          'Improved arm\'s length vision for phones, dashboards, and cooking',
+          'Low risk of halos and glare at night',
+          'Proven safety and reliability'
         ]
       },
-      multifocal: {
-        name: 'TECNIS® Multifocal IOL',
-        benefits: [
-          'Excellent near and intermediate vision',
-          'Reduced dependence on glasses',
-          'High patient satisfaction rates',
-          'Advanced optical design'
+      puresee: {
+        name: hasAstigmatism ? 'TECNIS® PureSee™ Toric IOL' : 'TECNIS® PureSee™ IOL',
+        benefits: hasAstigmatism ? [
+          'Seamless vision from distance to arm\'s length',
+          'Great for active lifestyles including golf and sports',
+          'Excellent performance in low light and night driving',
+          'Corrects astigmatism for enhanced clarity',
+          'Minimal visual disturbances - similar to standard lenses'
+        ] : [
+          'Seamless vision from distance to arm\'s length',
+          'Great for active lifestyles including golf and sports',
+          'Excellent performance in low light and night driving',
+          'Minimal visual disturbances - similar to standard lenses'
         ]
       },
-      extended: {
-        name: 'TECNIS® Symfony Extended Range IOL',
-        benefits: [
-          'Extended range of clear vision',
-          'Reduced chromatic aberrations',
-          'Good intermediate vision',
-          'Lower incidence of halos'
-        ]
-      },
-      toric: {
-        name: 'TECNIS® Toric IOL',
-        benefits: [
-          'Corrects astigmatism effectively',
-          'Improved distance vision quality',
-          'Stable lens positioning',
-          'Reduced dependence on glasses for distance'
+      odyssey: {
+        name: hasAstigmatism ? 'TECNIS® Odyssey™ Toric II IOL' : 'TECNIS® Odyssey™ IOL',
+        benefits: hasAstigmatism ? [
+          'Complete range of vision - near, intermediate, and far',
+          'Freedom from glasses for nearly all activities',
+          'Read small print on phones and tablets easily',
+          'Two times better contrast in dim lighting than competing lenses',
+          'Corrects astigmatism while providing full visual range',
+          '93% of patients report minimal or no halos and glare'
+        ] : [
+          'Complete range of vision - near, intermediate, and far',
+          'Freedom from glasses for nearly all activities',
+          'Read small print on phones and tablets easily',
+          'Two times better contrast in dim lighting than competing lenses',
+          '93% of patients report minimal or no halos and glare'
         ]
       }
     };
 
-    const recommendation = iolMapping[recommendedType as keyof typeof iolMapping];
-    const matchScore = Math.min(95, Math.max(75, (maxScore / 15) * 100));
+    const recommendation = iolMapping[baseModel];
+    
+    // Calculate match score based on how well answers align
+    let matchScore = 85; // Base score
+    
+    // Adjust based on clarity of answers
+    if (glassesFeeling === 'hate-glasses' && nearActivities >= 2) matchScore += 5;
+    if (glassesFeeling === 'nice-not-to-wear' && intermediateActivities > 0) matchScore += 5;
+    if (glassesFeeling === 'dont-mind') matchScore += 5;
+    if (hasAstigmatism) matchScore += 3; // Clear need for toric
+    
+    matchScore = Math.min(95, matchScore);
 
     return {
       primaryIOL: recommendation.name,
       matchScore: Math.round(matchScore),
       benefits: recommendation.benefits,
       considerations: [
-        'Results may vary based on individual eye anatomy',
-        'Final recommendation should be made by your surgeon',
-        'Multiple factors influence IOL selection'
+        'This recommendation is based on your responses and general guidance. Individual results may vary based on your unique eye anatomy and overall health. Your eye surgeon will perform a comprehensive examination and discuss all available options to determine the best IOL for your specific needs. Multiple factors beyond this assessment influence the final IOL selection.'
       ]
     };
   }, []);
@@ -377,6 +323,35 @@ export const useAssessment = () => {
     
     announceToScreenReader('Assessment complete. Results are now displayed.');
   }, [state.answers, calculateResults, announceToScreenReader]);
+
+  const nextQuestion = useCallback(() => {
+    if (state.currentQuestion < state.totalQuestions - 1) {
+      setState(prev => ({
+        ...prev,
+        currentQuestion: prev.currentQuestion + 1
+      }));
+      
+      const progress = getProgress();
+      announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
+    } else {
+      // On last question, delay completion slightly to ensure state has updated
+      setTimeout(() => {
+        completeAssessment();
+      }, 50);
+    }
+  }, [state.currentQuestion, state.totalQuestions, getProgress, announceToScreenReader, completeAssessment]);
+
+  const previousQuestion = useCallback(() => {
+    if (state.currentQuestion > 0) {
+      setState(prev => ({
+        ...prev,
+        currentQuestion: prev.currentQuestion - 1
+      }));
+      
+      const progress = getProgress();
+      announceToScreenReader(`Question ${progress.current} of ${progress.total}, ${progress.percentage}% complete`);
+    }
+  }, [state.currentQuestion, getProgress, announceToScreenReader]);
 
   const restartAssessment = useCallback(() => {
     // Clear stored progress
