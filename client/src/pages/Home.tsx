@@ -5,6 +5,7 @@ import { ProgressSection } from '@/components/ProgressSection';
 import { QuestionCard } from '@/components/QuestionCard';
 import { LoadingState } from '@/components/LoadingState';
 import { ResultsCard } from '@/components/ResultsCard';
+import { IOLComparisonChart } from '@/components/IOLComparisonChart';
 import { Footer } from '@/components/Footer';
 import { SavedProgressNotification } from '@/components/SavedProgressNotification';
 import { useAssessment } from '@/hooks/useAssessment';
@@ -147,11 +148,14 @@ export default function Home() {
         )}
         
         {state.isComplete && state.results && (
-          <ResultsCard
-            results={state.results}
-            onPrint={handlePrint}
-            onRestart={handleRestart}
-          />
+          <>
+            <ResultsCard
+              results={state.results}
+              onPrint={handlePrint}
+              onRestart={handleRestart}
+            />
+            <IOLComparisonChart />
+          </>
         )}
       </main>
       
