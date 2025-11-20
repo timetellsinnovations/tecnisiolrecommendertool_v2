@@ -31,20 +31,6 @@ export const IOLComparisonChart = () => {
       astigmatism: true,
     },
     {
-      name: 'TECNIS Synergy®',
-      distance: true,
-      intermediate: true,
-      near: true,
-      astigmatism: false,
-    },
-    {
-      name: 'TECNIS Synergy® Toric II',
-      distance: true,
-      intermediate: true,
-      near: true,
-      astigmatism: true,
-    },
-    {
       name: 'TECNIS Odyssey®',
       distance: true,
       intermediate: true,

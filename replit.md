@@ -21,7 +21,7 @@ Preferred communication style: Simple, everyday language.
 ### Component Structure
 - **Layout Components**: Header, Footer, DisclaimerBanner for consistent structure
 - **Assessment Components**: QuestionCard, ProgressSection, ResultsCard for interactive flow
-- **Educational Components**: IOLComparisonChart showing all 8 TECNIS products with visual capability matrix
+- **Educational Components**: IOLComparisonChart showing all 6 approved TECNIS products with visual capability matrix
 - **UI Components**: Comprehensive Shadcn/UI component library with custom styling
 - **Utility Components**: LoadingState, custom hooks for mobile detection and assessment logic
 
@@ -51,11 +51,9 @@ Preferred communication style: Simple, everyday language.
 - **Disclaimer System**: Prominent medical disclaimer banner with regulatory compliance
 - **Progressive Disclosure**: Stepped 5-question assessment flow with help text and explanations
 - **Result Presentation**: Clear IOL recommendations with patient-friendly benefits and consolidated considerations
-- **IOL Comparison Chart**: Comprehensive comparison table showing all 8 TECNIS IOL products with Distance/Intermediate/Near/Astigmatism capabilities
+- **IOL Comparison Chart**: Comprehensive comparison table showing 6 approved TECNIS IOL products with Distance/Intermediate/Near/Astigmatism capabilities
 - **Print Support**: Print-optimized styling for patient records
-- **TECNIS Product Lineup**: 
-  - **Recommended by App**: Eyhance, Eyhance Toric II, PureSee, PureSee Toric, Odyssey, Odyssey Toric II
-  - **Shown for Education**: Synergy, Synergy Toric II (hybrid EDOF + multifocal - displayed in comparison chart but not currently recommended by algorithm)
+- **TECNIS Product Lineup**: Eyhance, Eyhance Toric II, PureSee, PureSee Toric, Odyssey, Odyssey Toric II
 
 ### Assessment Logic
 - **Question Flow**: (1) Activities → (2) Glasses preference → (3) Night driving → (4) Eye history → (5) Astigmatism
