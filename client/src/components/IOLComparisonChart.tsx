@@ -88,9 +88,9 @@ export const IOLComparisonChart = () => {
           aria-label="IOL Products Comparison Table"
         >
           <thead>
-            <tr className="bg-primary/90 dark:bg-primary text-primary-foreground">
+            <tr className="bg-primary dark:bg-primary">
               <th 
-                className="p-3 sm:p-4 text-left font-semibold text-sm sm:text-base"
+                className="p-3 sm:p-4 text-left font-semibold text-sm sm:text-base text-primary-foreground"
                 scope="col"
                 data-testid="header-product"
               >
@@ -99,16 +99,16 @@ export const IOLComparisonChart = () => {
               {capabilities.map((capability) => (
                 <th 
                   key={capability.key}
-                  className="p-3 sm:p-4 text-center font-semibold text-sm sm:text-base"
+                  className="p-3 sm:p-4 text-center font-semibold text-sm sm:text-base text-primary-foreground"
                   scope="col"
                   data-testid={`header-${capability.key}`}
                 >
                   <div className="flex flex-col items-center gap-1 sm:gap-2">
                     <capability.icon 
-                      className="w-5 h-5 sm:w-6 sm:h-6" 
+                      className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" 
                       aria-hidden="true" 
                     />
-                    <span className="text-xs sm:text-sm">{capability.name}</span>
+                    <span className="text-xs sm:text-sm text-primary-foreground">{capability.name}</span>
                   </div>
                 </th>
               ))}
