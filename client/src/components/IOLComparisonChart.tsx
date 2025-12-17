@@ -3,7 +3,7 @@ import { Mountain, Monitor, BookOpen, Eye, Check, X } from 'lucide-react';
 export const IOLComparisonChart = () => {
   const iolProducts = [
     {
-      name: 'TECNIS Eyhance',
+      name: 'TECNIS Eyhance™',
       distance: true,
       intermediate: false,
       near: false,
@@ -11,7 +11,7 @@ export const IOLComparisonChart = () => {
       astigmatism: true,
     },
     {
-      name: 'TECNIS PureSee',
+      name: 'TECNIS PureSee™',
       distance: true,
       intermediate: true,
       near: true,
@@ -19,7 +19,7 @@ export const IOLComparisonChart = () => {
       astigmatism: true,
     },
     {
-      name: 'TECNIS Odyssey',
+      name: 'TECNIS Odyssey™',
       distance: true,
       intermediate: true,
       near: true,
@@ -48,7 +48,7 @@ export const IOLComparisonChart = () => {
           className="text-xl sm:text-2xl font-bold text-card-foreground mb-3 sm:mb-4"
           data-testid="text-comparison-title"
         >
-          Compare TECNIS® IOL Options
+          Compare TECNIS™ IOL Options
         </h2>
         <div 
           className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-3 sm:p-4 text-sm sm:text-base text-blue-900 dark:text-blue-100"
@@ -146,7 +146,7 @@ export const IOLComparisonChart = () => {
         
         {/* Footnote for PureSee */}
         <div className="mt-3 text-xs sm:text-sm text-muted-foreground" data-testid="text-puresee-footnote">
-          <span className="font-medium">*</span> TECNIS PureSee: May need glasses for fine print or extended close reading
+          <span className="font-medium">*</span> TECNIS PureSee™: May need glasses for fine print or extended close reading
         </div>
       </div>
 

@@ -259,7 +259,7 @@ export const useAssessment = () => {
     // Map to IOL recommendations with patient-friendly language
     const iolMapping = {
       eyhance: {
-        name: hasAstigmatism ? 'TECNIS® Eyhance™ Toric II IOL' : 'TECNIS® Eyhance™ IOL',
+        name: hasAstigmatism ? 'TECNIS Eyhance™ Toric II IOL' : 'TECNIS Eyhance™ IOL',
         benefits: hasAstigmatism ? [
           'Clear distance vision for driving and outdoor activities',
           'Improved arm\'s length vision for phones, dashboards, and cooking',
@@ -274,7 +274,7 @@ export const useAssessment = () => {
         ]
       },
       puresee: {
-        name: hasAstigmatism ? 'TECNIS® PureSee™ Toric IOL' : 'TECNIS® PureSee™ IOL',
+        name: hasAstigmatism ? 'TECNIS PureSee™ Toric IOL' : 'TECNIS PureSee™ IOL',
         benefits: hasAstigmatism ? [
           'Seamless vision from distance to arm\'s length',
           'Great for active lifestyles including golf and sports',
@@ -289,7 +289,7 @@ export const useAssessment = () => {
         ]
       },
       odyssey: {
-        name: hasAstigmatism ? 'TECNIS® Odyssey™ Toric II IOL' : 'TECNIS® Odyssey™ IOL',
+        name: hasAstigmatism ? 'TECNIS Odyssey™ Toric II IOL' : 'TECNIS Odyssey™ IOL',
         benefits: hasAstigmatism ? [
           'Complete range of vision - near, intermediate, and far',
           'Freedom from glasses for nearly all activities',

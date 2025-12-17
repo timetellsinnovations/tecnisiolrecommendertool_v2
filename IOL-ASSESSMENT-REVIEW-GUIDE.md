@@ -1,4 +1,4 @@
-# TECNIS® IOL Selection Tool - Assessment Review Guide
+# TECNIS™ IOL Selection Tool - Assessment Review Guide
 
 **Document Purpose**: Comprehensive guide for team review of the IOL recommendation logic, question flow, and all possible outcomes.
 
@@ -8,15 +8,15 @@
 
 ## Executive Summary
 
-This tool guides patients through a 5-question assessment to recommend one of **3 approved TECNIS® IOL products** (plus Toric variants for astigmatism) based on their lifestyle, preferences, and eye health. The recommendation algorithm prioritizes patient safety while matching lens capabilities to patient needs.
+This tool guides patients through a 5-question assessment to recommend one of **3 approved TECNIS™ IOL products** (plus Toric variants for astigmatism) based on their lifestyle, preferences, and eye health. The recommendation algorithm prioritizes patient safety while matching lens capabilities to patient needs.
 
 ### Approved IOL Products
 
 | Base Model | Standard Version | Toric Version (for Astigmatism) |
 |------------|------------------|--------------------------------|
-| **Eyhance** | TECNIS® Eyhance™ IOL | TECNIS® Eyhance™ Toric II IOL |
-| **PureSee** | TECNIS® PureSee™ IOL | TECNIS® PureSee™ Toric IOL |
-| **Odyssey** | TECNIS® Odyssey™ IOL | TECNIS® Odyssey™ Toric II IOL |
+| **Eyhance** | TECNIS Eyhance™ IOL | TECNIS Eyhance™ Toric II IOL |
+| **PureSee** | TECNIS PureSee™ IOL | TECNIS PureSee™ Toric IOL |
+| **Odyssey** | TECNIS Odyssey™ IOL | TECNIS Odyssey™ Toric II IOL |
 
 ---
 
@@ -64,7 +64,7 @@ This message ONLY appears when:
 
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
-### TECNIS® Eyhance™ (Enhanced Monofocal)
+### TECNIS Eyhance™ (Enhanced Monofocal)
 - **Visual Range**: Distance only
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
@@ -73,7 +73,7 @@ This message ONLY appears when:
   - Proven safety and reliability
 - **Requires Glasses For**: Intermediate and near tasks (reading, computer, fine print)
 
-### TECNIS® PureSee™ (Extended Depth of Focus - EDOF)
+### TECNIS PureSee™ (Extended Depth of Focus - EDOF)
 - **Visual Range**: Distance + Intermediate + Near*
 - **Best For**: Active patients wanting reduced glasses dependence
 - **Key Benefits**:
@@ -83,7 +83,7 @@ This message ONLY appears when:
   - Minimal visual disturbances - similar to standard lenses
 - **May Need Glasses For**: *Fine print or extended close reading
 
-### TECNIS® Odyssey™ (Full Visual Range Multifocal)
+### TECNIS Odyssey™ (Full Visual Range Multifocal)
 - **Visual Range**: Distance + Intermediate + Near (Complete Range)
 - **Best For**: Patients who strongly want glasses independence
 - **Key Benefits**:
@@ -214,9 +214,9 @@ This message ONLY appears when:
 ┌─────────────────────────────────────────────────────────────────┐
 │  FINAL STEP: Apply Astigmatism Correction                       │
 │  If astigmatism = "yes" → Add "Toric" to base model             │
-│  • Eyhance → Eyhance Toric II                                   │
-│  • PureSee → PureSee Toric                                      │
-│  • Odyssey → Odyssey Toric II                                   │
+│  • Eyhance → Eyhance™ Toric II                                  │
+│  • PureSee → PureSee™ Toric                                     │
+│  • Odyssey → Odyssey™ Toric II                                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -296,14 +296,14 @@ The results page includes a visual comparison chart showing the 3 base products:
 
 | IOL Product | Distance | Intermediate | Near | Available for Astigmatism Correction |
 |-------------|:--------:|:------------:|:----:|:------------------------------------:|
-| TECNIS Eyhance | ✓ | ✗ | ✗ | ✓ |
-| TECNIS PureSee | ✓ | ✓ | ✓* | ✓ |
-| TECNIS Odyssey | ✓ | ✓ | ✓ | ✓ |
+| TECNIS Eyhance™ | ✓ | ✗ | ✗ | ✓ |
+| TECNIS PureSee™ | ✓ | ✓ | ✓* | ✓ |
+| TECNIS Odyssey™ | ✓ | ✓ | ✓ | ✓ |
 
 **Legend**:
 - ✓ = Feature/capability available
 - ✗ = Feature/capability not available
-- *TECNIS PureSee: May need glasses for fine print or extended close reading
+- *TECNIS PureSee™: May need glasses for fine print or extended close reading
 
 ---
 
@@ -331,7 +331,7 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 ## Technical Implementation Notes
 
 ### Data Sources
-- Product specifications based on official J&J Vision TECNIS® documentation
+- Product specifications based on official J&J Vision TECNIS™ documentation
 - Visual capabilities verified against published clinical data
 - Decision criteria aligned with ophthalmology best practices
 
