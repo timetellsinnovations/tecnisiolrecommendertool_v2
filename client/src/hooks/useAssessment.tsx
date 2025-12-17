@@ -206,10 +206,14 @@ export const useAssessment = () => {
     // Analyze activities for near vs intermediate/distance focus
     const nearActivities = activities.filter(a => 
       ['reading', 'computer', 'crafts'].includes(a)
-    ).length;
+    );
     const intermediateActivities = activities.filter(a => 
       ['sports', 'driving'].includes(a)
-    ).length;
+    );
+
+    // Track match reasons and eye history override
+    const matchReasons: string[] = [];
+    let isEyeHistoryOverride = false;
 
     // Decision tree based on reviewer criteria - requires activity alignment
     let baseModel: 'eyhance' | 'puresee' | 'odyssey';
@@ -217,22 +221,39 @@ export const useAssessment = () => {
     // Check for significant eye history first (Eyhance is safest option)
     if (eyeHistory === 'significant') {
       baseModel = 'eyhance';
+      isEyeHistoryOverride = true;
+      matchReasons.push('You indicated previous eye surgery or conditions');
     }
     // Hate glasses + near activities → Odyssey
-    else if (glassesFeeling === 'hate-glasses' && nearActivities > 0) {
+    else if (glassesFeeling === 'hate-glasses' && nearActivities.length > 0) {
       baseModel = 'odyssey';
+      matchReasons.push('Your goal of not wearing glasses');
+      if (nearActivities.includes('reading')) matchReasons.push('Reading activities');
+      if (nearActivities.includes('computer')) matchReasons.push('Computer work');
+      if (nearActivities.includes('crafts')) matchReasons.push('Detail work and crafts');
+      if (nightDriving === 'frequently') matchReasons.push('Frequent night driving');
+      else if (nightDriving === 'occasionally') matchReasons.push('Occasional night driving');
     }
     // Nice not to wear + intermediate activities → PureSee
-    else if (glassesFeeling === 'nice-not-to-wear' && (intermediateActivities > 0 || nightDriving === 'frequently' || nightDriving === 'occasionally')) {
+    else if (glassesFeeling === 'nice-not-to-wear' && (intermediateActivities.length > 0 || nightDriving === 'frequently' || nightDriving === 'occasionally')) {
       baseModel = 'puresee';
+      matchReasons.push('Your preference for less glasses dependence');
+      if (intermediateActivities.includes('driving')) matchReasons.push('Driving activities');
+      if (intermediateActivities.includes('sports')) matchReasons.push('Sports and recreation');
+      if (nightDriving === 'frequently') matchReasons.push('Frequent night driving');
+      else if (nightDriving === 'occasionally') matchReasons.push('Occasional night driving');
     }
     // Don't mind glasses → Eyhance (safe, reliable option)
     else if (glassesFeeling === 'dont-mind') {
       baseModel = 'eyhance';
+      matchReasons.push('Your comfort with wearing glasses');
+      if (intermediateActivities.includes('driving')) matchReasons.push('Driving activities');
+      if (intermediateActivities.includes('sports')) matchReasons.push('Sports and recreation');
     }
     // All other cases → Eyhance (safest default for unclear activity patterns)
     else {
       baseModel = 'eyhance';
+      matchReasons.push('Based on your overall responses');
     }
 
     // Map to IOL recommendations with patient-friendly language
@@ -292,8 +313,8 @@ export const useAssessment = () => {
     let matchScore = 85; // Base score
     
     // Adjust based on clarity of answers
-    if (glassesFeeling === 'hate-glasses' && nearActivities >= 2) matchScore += 5;
-    if (glassesFeeling === 'nice-not-to-wear' && intermediateActivities > 0) matchScore += 5;
+    if (glassesFeeling === 'hate-glasses' && nearActivities.length >= 2) matchScore += 5;
+    if (glassesFeeling === 'nice-not-to-wear' && intermediateActivities.length > 0) matchScore += 5;
     if (glassesFeeling === 'dont-mind') matchScore += 5;
     if (hasAstigmatism) matchScore += 3; // Clear need for toric
     
@@ -301,11 +322,14 @@ export const useAssessment = () => {
 
     return {
       primaryIOL: recommendation.name,
+      baseModel,
       matchScore: Math.round(matchScore),
       benefits: recommendation.benefits,
       considerations: [
         'This recommendation is based on your responses and general guidance. Individual results may vary based on your unique eye anatomy and overall health. Your eye surgeon will perform a comprehensive examination and discuss all available options to determine the best IOL for your specific needs. Multiple factors beyond this assessment influence the final IOL selection.'
-      ]
+      ],
+      matchReasons,
+      isEyeHistoryOverride
     };
   }, []);
 

@@ -1,4 +1,4 @@
-import { CheckCircle, Check, Printer, RotateCcw } from 'lucide-react';
+import { CheckCircle, Check, Printer, RotateCcw, MessageCircle } from 'lucide-react';
 import { AssessmentResults } from '@/types/assessment';
 import { Button } from '@/components/ui/button';
 
@@ -17,12 +17,38 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
     minute: '2-digit'
   });
 
+  // Get the base model name for the CTA (without Toric suffix)
+  const getBaseModelName = () => {
+    switch (results.baseModel) {
+      case 'odyssey': return 'TECNIS Odyssey';
+      case 'puresee': return 'TECNIS PureSee';
+      case 'eyhance': return 'TECNIS Eyhance';
+      default: return 'TECNIS Eyhance';
+    }
+  };
+
   return (
     <div className="animate-fade-in bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 page-break-inside-avoid results-card" role="region" aria-labelledby="results-title" data-testid="results-card">
       {/* Print Header - Hidden on screen */}
       <div className="hidden print:block print-header">
         <h1>TECNIS® IOL Selection Tool</h1>
         <div className="subtitle">Patient Education Guide - Assessment Results</div>
+      </div>
+      
+      {/* Prominent Call-to-Action Box */}
+      <div 
+        className="bg-primary text-primary-foreground rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 text-center shadow-lg border-2 border-primary"
+        role="banner"
+        aria-label="Recommended lens call to action"
+        data-testid="cta-box"
+      >
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+          <span className="text-sm sm:text-base font-medium uppercase tracking-wide">Your Next Step</span>
+        </div>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" data-testid="text-cta-lens">
+          Ask your doctor about {getBaseModelName()}
+        </h2>
       </div>
       
       <div className="text-center mb-4 sm:mb-6 md:mb-8">
@@ -54,17 +80,47 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
           </div>
         </div>
         
+        {/* Why You Matched Section */}
         <div className="bg-card dark:bg-card rounded-lg p-3 sm:p-4 md:p-6 shadow-md iol-recommendation">
-          <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Key Benefits</h3>
-          <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground benefits-list" data-testid="list-benefits">
-            {results.benefits.map((benefit, index) => (
-              <li key={index} className="flex items-start" data-testid={`text-benefit-${index}`}>
+          <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Why You Matched</h3>
+          <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground" data-testid="list-match-reasons">
+            {results.matchReasons.map((reason, index) => (
+              <li key={index} className="flex items-start" data-testid={`text-match-reason-${index}`}>
                 <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0 print:hidden" aria-hidden="true" />
-                <span>{benefit}</span>
+                <span>{reason}</span>
               </li>
             ))}
           </ul>
         </div>
+      </div>
+
+      {/* Eye History Override Message */}
+      {results.isEyeHistoryOverride && (
+        <div 
+          className="mt-3 sm:mt-4 md:mt-6 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-3 sm:p-4 md:p-6 shadow-md"
+          role="alert"
+          aria-label="Important information about your recommendation"
+          data-testid="eye-history-override-message"
+        >
+          <h3 className="text-base sm:text-lg font-semibold text-amber-900 dark:text-amber-100 mb-2 sm:mb-3">Important Information</h3>
+          <p className="text-xs sm:text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+            Because you indicated previous eye surgery or conditions, this may affect which lens options are best for you. 
+            Some advanced technology lenses may not be suitable depending on your specific situation. 
+            <strong> Talk to your eye care professional about what option is right for you</strong> — they will evaluate your individual circumstances and discuss all available choices.
+          </p>
+        </div>
+      )}
+      
+      <div className="mt-3 sm:mt-4 md:mt-6 bg-card dark:bg-card rounded-lg p-3 sm:p-4 md:p-6 shadow-md iol-recommendation">
+        <h3 className="text-base sm:text-lg font-semibold text-card-foreground mb-2 sm:mb-3">Key Benefits</h3>
+        <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground benefits-list" data-testid="list-benefits">
+          {results.benefits.map((benefit, index) => (
+            <li key={index} className="flex items-start" data-testid={`text-benefit-${index}`}>
+              <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 mr-1.5 sm:mr-2 flex-shrink-0 print:hidden" aria-hidden="true" />
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
       </div>
       
       {results.considerations && results.considerations.length > 0 && (

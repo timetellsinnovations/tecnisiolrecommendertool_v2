@@ -19,9 +19,12 @@ export interface AssessmentAnswers {
 
 export interface AssessmentResults {
   primaryIOL: string;
+  baseModel: 'eyhance' | 'puresee' | 'odyssey';
   matchScore: number;
   benefits: string[];
   considerations: string[];
+  matchReasons: string[];
+  isEyeHistoryOverride: boolean;
 }
 
 export interface AssessmentState {

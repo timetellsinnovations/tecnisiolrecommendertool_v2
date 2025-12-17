@@ -3,45 +3,27 @@ import { Mountain, Monitor, BookOpen, Eye, Check, X } from 'lucide-react';
 export const IOLComparisonChart = () => {
   const iolProducts = [
     {
-      name: 'TECNIS Eyhance®',
+      name: 'TECNIS Eyhance',
       distance: true,
-      intermediate: true,
+      intermediate: false,
       near: false,
-      astigmatism: false,
-    },
-    {
-      name: 'TECNIS Eyhance® Toric II',
-      distance: true,
-      intermediate: true,
-      near: false,
+      nearNote: null,
       astigmatism: true,
     },
     {
-      name: 'TECNIS PureSee®',
+      name: 'TECNIS PureSee',
       distance: true,
       intermediate: true,
       near: true,
-      astigmatism: false,
-    },
-    {
-      name: 'TECNIS PureSee® Toric',
-      distance: true,
-      intermediate: true,
-      near: true,
+      nearNote: 'May need glasses for fine print',
       astigmatism: true,
     },
     {
-      name: 'TECNIS Odyssey®',
+      name: 'TECNIS Odyssey',
       distance: true,
       intermediate: true,
       near: true,
-      astigmatism: false,
-    },
-    {
-      name: 'TECNIS Odyssey® Toric II',
-      distance: true,
-      intermediate: true,
-      near: true,
+      nearNote: null,
       astigmatism: true,
     },
   ];
@@ -50,7 +32,7 @@ export const IOLComparisonChart = () => {
     { name: 'Distance', icon: Mountain, key: 'distance' as const },
     { name: 'Intermediate', icon: Monitor, key: 'intermediate' as const },
     { name: 'Near', icon: BookOpen, key: 'near' as const },
-    { name: 'Astigmatism Correction', icon: Eye, key: 'astigmatism' as const },
+    { name: 'Available for Astigmatism Correction', icon: Eye, key: 'astigmatism' as const },
   ];
 
   return (
@@ -138,11 +120,16 @@ export const IOLComparisonChart = () => {
                     data-testid={`cell-${capability.key}-${index}`}
                   >
                     {product[capability.key] ? (
-                      <Check 
-                        className="w-5 h-5 sm:w-6 sm:h-6 text-accent mx-auto" 
-                        aria-label={`${capability.name} supported`}
-                        data-testid={`icon-check-${capability.key}-${index}`}
-                      />
+                      <div className="flex flex-col items-center">
+                        <Check 
+                          className="w-5 h-5 sm:w-6 sm:h-6 text-accent mx-auto" 
+                          aria-label={`${capability.name} supported`}
+                          data-testid={`icon-check-${capability.key}-${index}`}
+                        />
+                        {capability.key === 'near' && product.nearNote && (
+                          <span className="text-[10px] sm:text-xs text-muted-foreground mt-1 max-w-[100px]">*</span>
+                        )}
+                      </div>
                     ) : (
                       <X 
                         className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground/40 mx-auto" 
@@ -156,6 +143,11 @@ export const IOLComparisonChart = () => {
             ))}
           </tbody>
         </table>
+        
+        {/* Footnote for PureSee */}
+        <div className="mt-3 text-xs sm:text-sm text-muted-foreground" data-testid="text-puresee-footnote">
+          <span className="font-medium">*</span> TECNIS PureSee: May need glasses for fine print or extended close reading
+        </div>
       </div>
 
       {/* Mobile Card View */}
@@ -202,6 +194,12 @@ export const IOLComparisonChart = () => {
                 </div>
               ))}
             </div>
+            {/* Mobile footnote for PureSee */}
+            {product.nearNote && (
+              <p className="mt-3 text-xs text-muted-foreground italic" data-testid={`text-mobile-note-${productIndex}`}>
+                * {product.nearNote}
+              </p>
+            )}
           </div>
         ))}
       </div>
