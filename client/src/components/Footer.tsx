@@ -56,7 +56,7 @@ export const Footer = () => {
         
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            © 2024 Johnson & Johnson Vision Care, Inc. All rights reserved. TECNIS™ is a trademark of Johnson & Johnson Vision Care, Inc.
+            © 2025 Johnson & Johnson and its affiliates. All rights reserved. TECNIS™ is a trademark of Johnson & Johnson Vision Care, Inc.
           </p>
         </div>
       </div>
