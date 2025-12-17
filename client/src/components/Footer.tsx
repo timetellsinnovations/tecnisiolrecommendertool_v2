@@ -4,9 +4,9 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <h3 className="text-lg font-semibold text-card-foreground mb-4">About TECNIS®</h3>
+            <h3 className="text-lg font-semibold text-card-foreground mb-4">About TECNIS™</h3>
             <p className="text-sm text-muted-foreground">
-              TECNIS® IOLs are designed to provide enhanced vision quality and reduced dependence on glasses for cataract and presbyopia patients.
+              TECNIS™ IOLs are designed to provide enhanced vision quality and reduced dependence on glasses for cataract and presbyopia patients.
             </p>
           </div>
           
@@ -49,14 +49,14 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-card-foreground mb-4">Contact</h3>
             <p className="text-sm text-muted-foreground">
-              For questions about this tool or TECNIS® IOLs, please consult your eye care professional.
+              For questions about this tool or TECNIS™ IOLs, please consult your eye care professional.
             </p>
           </div>
         </div>
         
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            © 2024 Johnson & Johnson Vision Care, Inc. All rights reserved. TECNIS® is a trademark of Johnson & Johnson Vision Care, Inc.
+            © 2024 Johnson & Johnson Vision Care, Inc. All rights reserved. TECNIS™ is a trademark of Johnson & Johnson Vision Care, Inc.
           </p>
         </div>
       </div>

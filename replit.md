@@ -1,4 +1,4 @@
-# TECNIS® IOL Selection Tool - Patient Education Guide
+# TECNIS™ IOL Selection Tool - Patient Education Guide
 
 ## Overview
 

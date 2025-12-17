@@ -11,7 +11,7 @@ export const Header = () => {
               T
             </div>
             <div className="min-w-0 flex-1">
-              <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold truncate leading-tight">TECNIS® IOL Selection Tool</h1>
+              <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold truncate leading-tight">TECNIS™ IOL Selection Tool</h1>
               <p className="text-xs sm:text-sm opacity-90 hidden sm:block">Patient Education Guide</p>
             </div>
           </div>

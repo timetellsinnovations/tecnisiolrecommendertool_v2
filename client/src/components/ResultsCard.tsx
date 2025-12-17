@@ -31,7 +31,7 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
     <div className="animate-fade-in bg-gradient-to-br from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-lg shadow-lg p-3 sm:p-6 md:p-8 page-break-inside-avoid results-card" role="region" aria-labelledby="results-title" data-testid="results-card">
       {/* Print Header - Hidden on screen */}
       <div className="hidden print:block print-header">
-        <h1>TECNIS® IOL Selection Tool</h1>
+        <h1>TECNIS™ IOL Selection Tool</h1>
         <div className="subtitle">Patient Education Guide - Assessment Results</div>
       </div>
       

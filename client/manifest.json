@@ -1,7 +1,7 @@
 {
-  "name": "TECNIS® IOL Selection Tool - Patient Education Guide",
-  "short_name": "TECNIS® IOL Tool",
-  "description": "Interactive patient education tool for TECNIS® IOL selection with personalized recommendations",
+  "name": "TECNIS™ IOL Selection Tool - Patient Education Guide",
+  "short_name": "TECNIS™ IOL Tool",
+  "description": "Interactive patient education tool for TECNIS™ IOL selection with personalized recommendations",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#DC143C",
