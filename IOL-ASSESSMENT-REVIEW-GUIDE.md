@@ -2,15 +2,15 @@
 
 **Document Purpose**: Comprehensive guide for team review of the IOL recommendation logic, question flow, and all possible outcomes.
 
-**Last Updated**: December 2, 2025
+**Last Updated**: December 17, 2025
 
 ---
 
 ## Executive Summary
 
-This tool guides patients through a 5-question assessment to recommend one of **6 approved TECNIS® IOL products** based on their lifestyle, preferences, and eye health. The recommendation algorithm prioritizes patient safety while matching lens capabilities to patient needs.
+This tool guides patients through a 5-question assessment to recommend one of **3 approved TECNIS® IOL products** (plus Toric variants for astigmatism) based on their lifestyle, preferences, and eye health. The recommendation algorithm prioritizes patient safety while matching lens capabilities to patient needs.
 
-### Approved IOL Products (6 Total)
+### Approved IOL Products
 
 | Base Model | Standard Version | Toric Version (for Astigmatism) |
 |------------|------------------|--------------------------------|
@@ -20,27 +20,68 @@ This tool guides patients through a 5-question assessment to recommend one of **
 
 ---
 
+## Results Page Features
+
+### 1. Call-to-Action Box (Red Banner)
+At the top of results, patients see a prominent red banner:
+> **Your Next Step**  
+> **Ask your doctor about TECNIS [Lens Name]**
+
+This displays the base model name (Eyhance, PureSee, or Odyssey) without the Toric suffix.
+
+### 2. "Why You Matched" Section
+Shows the specific user answers that led to the recommendation:
+
+**For Odyssey recommendations:**
+- "Your goal of not wearing glasses"
+- "Reading activities" (if selected)
+- "Computer work" (if selected)
+- "Detail work and crafts" (if selected)
+- "Frequent night driving" or "Occasional night driving" (if applicable)
+
+**For PureSee recommendations:**
+- "Your preference for less glasses dependence"
+- "Driving activities" (if selected)
+- "Sports and recreation" (if selected)
+- "Frequent night driving" or "Occasional night driving" (if applicable)
+
+**For Eyhance recommendations:**
+- "Your comfort with wearing glasses" (if "don't mind" selected)
+- "Based on your overall responses" (fallback default)
+- "You indicated previous eye surgery or conditions" (if eye history override)
+
+### 3. Eye History Override Message (Amber Alert)
+When Eyhance is recommended due to significant eye history (not by preference), an amber-colored message appears:
+
+> **Important Information**  
+> Because you indicated previous eye surgery or conditions, this may affect which lens options are best for you. Some advanced technology lenses may not be suitable depending on your specific situation. **Talk to your eye care professional about what option is right for you** — they will evaluate your individual circumstances and discuss all available choices.
+
+This message ONLY appears when:
+- Patient selected "Previous Surgery/Conditions" for eye history
+- AND their other answers would have otherwise qualified them for PureSee or Odyssey
+
+---
+
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
 ### TECNIS® Eyhance™ (Enhanced Monofocal)
-- **Visual Range**: Distance + Enhanced Intermediate (arm's length)
+- **Visual Range**: Distance only
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
   - Clear distance vision for driving and outdoor activities
-  - Improved arm's length vision for phones, dashboards, and cooking
   - Low risk of halos and glare at night
   - Proven safety and reliability
-- **Requires Glasses For**: Near tasks (reading, fine print)
+- **Requires Glasses For**: Intermediate and near tasks (reading, computer, fine print)
 
 ### TECNIS® PureSee™ (Extended Depth of Focus - EDOF)
-- **Visual Range**: Distance + Intermediate + Functional Near
+- **Visual Range**: Distance + Intermediate + Near*
 - **Best For**: Active patients wanting reduced glasses dependence
 - **Key Benefits**:
   - Seamless vision from distance to arm's length
   - Great for active lifestyles including golf and sports
   - Excellent performance in low light and night driving
   - Minimal visual disturbances - similar to standard lenses
-- **May Need Glasses For**: Extended close reading
+- **May Need Glasses For**: *Fine print or extended close reading
 
 ### TECNIS® Odyssey™ (Full Visual Range Multifocal)
 - **Visual Range**: Distance + Intermediate + Near (Complete Range)
@@ -104,9 +145,9 @@ This tool guides patients through a 5-question assessment to recommend one of **
 |--------|-------------|-------------------------|
 | No Significant History | No prior surgeries or major complications | No override |
 | Minor Conditions | Dry eye, allergies, or similar conditions | No override |
-| **Previous Surgery/Conditions** | Prior eye surgery, glaucoma, etc. | **OVERRIDES ALL OTHER CRITERIA → Eyhance** |
+| **Previous Surgery/Conditions** | Prior eye surgery, glaucoma, etc. | **OVERRIDES ALL OTHER CRITERIA → Eyhance + Special Message** |
 
-**Safety Note**: Significant eye history always results in Eyhance recommendation regardless of other preferences, as it is the safest option for complex cases.
+**Safety Note**: Significant eye history always results in Eyhance recommendation regardless of other preferences, as it is the safest option for complex cases. The special eye history override message is displayed.
 
 ---
 
@@ -137,11 +178,11 @@ This tool guides patients through a 5-question assessment to recommend one of **
               ┌───────────────┴───────────────┐
               │ YES                           │ NO
               ▼                               ▼
-┌─────────────────────┐       ┌─────────────────────────────────┐
-│ RECOMMEND: EYHANCE  │       │ STEP 2: Check Glasses + Near    │
-│ (Safety Override)   │       │ Is glasses = "hate-glasses"     │
-└─────────────────────┘       │ AND near activities > 0?        │
-                              └─────────────────────────────────┘
+┌─────────────────────────────┐   ┌─────────────────────────────────┐
+│ RECOMMEND: EYHANCE          │   │ STEP 2: Check Glasses + Near    │
+│ (Safety Override)           │   │ Is glasses = "hate-glasses"     │
+│ + Show Override Message     │   │ AND near activities > 0?        │
+└─────────────────────────────┘   └─────────────────────────────────┘
                                               │
                               ┌───────────────┴───────────────┐
                               │ YES                           │ NO
@@ -185,18 +226,18 @@ This tool guides patients through a 5-question assessment to recommend one of **
 
 ### Eyhance Scenarios (Safe/Conservative)
 
-| # | Activities | Glasses Pref | Night Driving | Eye History | Astigmatism | **Result** |
-|---|------------|--------------|---------------|-------------|-------------|------------|
-| 1 | Any | Any | Any | **Significant** | No | **Eyhance** |
-| 2 | Any | Any | Any | **Significant** | Yes | **Eyhance Toric II** |
-| 3 | reading, driving | **Don't mind** | Rarely | None | No | **Eyhance** |
-| 4 | sports, driving | **Don't mind** | Occasionally | None | Yes | **Eyhance Toric II** |
-| 5 | **Not sure** | Nice not to wear | Rarely | None | No | **Eyhance** (safe default) |
-| 6 | sports, driving (no near) | **Hate glasses** | Rarely | None | No | **Eyhance** (no near activities) |
-| 7 | reading, computer (near only) | **Nice not to wear** | Rarely | None | No | **Eyhance** (no intermediate) |
+| # | Activities | Glasses Pref | Night Driving | Eye History | Astigmatism | **Result** | Override Message |
+|---|------------|--------------|---------------|-------------|-------------|------------|------------------|
+| 1 | Any | Any | Any | **Significant** | No | **Eyhance** | YES |
+| 2 | Any | Any | Any | **Significant** | Yes | **Eyhance Toric II** | YES |
+| 3 | reading, driving | **Don't mind** | Rarely | None | No | **Eyhance** | No |
+| 4 | sports, driving | **Don't mind** | Occasionally | None | Yes | **Eyhance Toric II** | No |
+| 5 | **Not sure** | Nice not to wear | Rarely | None | No | **Eyhance** (safe default) | No |
+| 6 | sports, driving (no near) | **Hate glasses** | Rarely | None | No | **Eyhance** (no near activities) | No |
+| 7 | reading, computer (near only) | **Nice not to wear** | Rarely | None | No | **Eyhance** (no intermediate) | No |
 
 **Key Insight**: Eyhance is recommended when:
-- Patient has significant eye history (safety override)
+- Patient has significant eye history (safety override) - **shows amber message**
 - Patient is comfortable wearing glasses
 - Patient's activity/preference combination doesn't qualify for PureSee or Odyssey
 
@@ -244,27 +285,25 @@ This tool guides patients through a 5-question assessment to recommend one of **
 | "Not sure" activities + any preference | **Eyhance** | Can't determine activity needs, default to safest |
 | Hate glasses but ONLY sports/driving (no near) | **Eyhance** | Odyssey requires near activities to justify full multifocal |
 | Nice not to wear but ONLY reading (no intermediate) + rarely drives at night | **Eyhance** | PureSee requires intermediate focus or night driving |
-| Any combination with significant eye history | **Eyhance** | Safety always takes priority |
+| Any combination with significant eye history | **Eyhance + Override Message** | Safety always takes priority |
 | Astigmatism = "not sure" | **Non-Toric version** | Err on side of caution, doctor will confirm |
 
 ---
 
 ## IOL Comparison Chart (Displayed on Results Page)
 
-The results page includes a visual comparison chart showing all 6 approved products:
+The results page includes a visual comparison chart showing the 3 base products:
 
-| IOL Product | Distance | Intermediate | Near | Astigmatism |
-|-------------|:--------:|:------------:|:----:|:-----------:|
-| TECNIS Eyhance® | ✓ | ✓ | ✗ | ✗ |
-| TECNIS Eyhance® Toric II | ✓ | ✓ | ✗ | ✓ |
-| TECNIS PureSee® | ✓ | ✓ | ✓ | ✗ |
-| TECNIS PureSee® Toric | ✓ | ✓ | ✓ | ✓ |
-| TECNIS Odyssey® | ✓ | ✓ | ✓ | ✗ |
-| TECNIS Odyssey® Toric II | ✓ | ✓ | ✓ | ✓ |
+| IOL Product | Distance | Intermediate | Near | Available for Astigmatism Correction |
+|-------------|:--------:|:------------:|:----:|:------------------------------------:|
+| TECNIS Eyhance | ✓ | ✗ | ✗ | ✓ |
+| TECNIS PureSee | ✓ | ✓ | ✓* | ✓ |
+| TECNIS Odyssey | ✓ | ✓ | ✓ | ✓ |
 
 **Legend**:
 - ✓ = Feature/capability available
 - ✗ = Feature/capability not available
+- *TECNIS PureSee: May need glasses for fine print or extended close reading
 
 ---
 
@@ -298,11 +337,21 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ### Code Location
 - Assessment logic: `client/src/hooks/useAssessment.tsx`
-- Comparison chart: `client/src/components/IOLComparisonChart.tsx`
 - Results display: `client/src/components/ResultsCard.tsx`
+- Comparison chart: `client/src/components/IOLComparisonChart.tsx`
+- Types: `client/src/types/assessment.ts`
+
+### Key Data Fields in Results
+- `primaryIOL`: Full IOL name including Toric suffix if applicable
+- `baseModel`: 'eyhance' | 'puresee' | 'odyssey' (used for CTA display)
+- `matchScore`: Confidence percentage (85-95%)
+- `matchReasons`: Array of strings explaining why this recommendation was made
+- `isEyeHistoryOverride`: Boolean indicating if Eyhance was chosen due to safety override
+- `benefits`: Array of patient-friendly benefit descriptions
+- `considerations`: Array of important disclaimers
 
 ### Testing Coverage
-- 38 documented test scenarios covering all logic paths
+- All logic paths validated through automated end-to-end tests
 - Edge cases validated for safe defaults
 - Responsive design tested on mobile, tablet, and desktop
 
@@ -316,9 +365,13 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 3. **Edge Cases**: Are the safe defaults (defaulting to Eyhance) appropriate for unclear scenarios?
 
-4. **Comparison Chart**: Does the capability matrix accurately represent each product's visual range?
+4. **Comparison Chart**: Does the simplified 3-product capability matrix accurately represent each product's visual range?
 
-5. **Disclaimers**: Is the medical disclaimer comprehensive enough for regulatory compliance?
+5. **Eye History Override**: Is the amber warning message appropriate for patients with significant eye history?
+
+6. **"Why You Matched"**: Are the match reason descriptions clear and helpful for patients?
+
+7. **Disclaimers**: Is the medical disclaimer comprehensive enough for regulatory compliance?
 
 ---
 
