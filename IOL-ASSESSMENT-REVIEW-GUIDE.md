@@ -2,7 +2,7 @@
 
 **Document Purpose**: Comprehensive guide for team review of the IOL recommendation logic, question flow, and all possible outcomes.
 
-**Last Updated**: December 17, 2025
+**Last Updated**: December 19, 2025
 
 ---
 
@@ -33,10 +33,10 @@ This displays the base model name (Eyhance, PureSee, or Odyssey) without the Tor
 Shows the specific user answers that led to the recommendation:
 
 **For Odyssey recommendations:**
-- "Your goal of not wearing glasses"
+- "Your goal of spectacle independence"
 - "Reading activities" (if selected)
-- "Computer work" (if selected)
 - "Detail work and crafts" (if selected)
+- "Computer work" (if selected)
 - "Frequent night driving" or "Occasional night driving" (if applicable)
 
 **For PureSee recommendations:**
@@ -81,16 +81,14 @@ This message ONLY appears when:
   - Great for active lifestyles including golf and sports
   - Excellent performance in low light and night driving
   - Minimal visual disturbances - similar to standard lenses
-- **May Need Glasses For**: *Fine print or extended close reading
+- **May Need Glasses For**: *Fine print
 
 ### TECNIS Odyssey™ (Full Visual Range Multifocal)
 - **Visual Range**: Distance + Intermediate + Near (Complete Range)
-- **Best For**: Patients who strongly want glasses independence
+- **Best For**: Patients who strongly want spectacle independence
 - **Key Benefits**:
   - Complete range of vision - near, intermediate, and far
   - Freedom from glasses for nearly all activities
-  - Read small print on phones and tablets easily
-  - Two times better contrast in dim lighting than competing lenses
   - 93% of patients report minimal or no halos and glare
 - **Trade-offs**: May experience some halos/glare (though minimal with this lens)
 
@@ -104,15 +102,15 @@ This message ONLY appears when:
 | Option | Description | Classification |
 |--------|-------------|----------------|
 | Reading | Books, newspapers, tablets | **Near Activity** |
-| Computer Work | Professional or personal computer use | **Near Activity** |
+| Computer Work | Professional or personal computer use | **Intermediate Activity** |
 | Driving | Daily commuting and travel | **Intermediate Activity** |
 | Sports/Recreation | Athletic activities and hobbies | **Intermediate Activity** |
 | Detail Work/Crafts | Fine motor activities requiring precision | **Near Activity** |
 | Not Sure | Need help determining | **No Classification** (safe default) |
 
 **Activity Classification Logic**:
-- **Near Activities**: reading, computer, crafts (count toward Odyssey eligibility)
-- **Intermediate Activities**: sports, driving (count toward PureSee eligibility)
+- **Near Activities**: reading, crafts (count toward Odyssey eligibility)
+- **Intermediate Activities**: computer, sports, driving (count toward PureSee eligibility)
 
 ---
 
@@ -143,9 +141,8 @@ This message ONLY appears when:
 
 | Option | Description | Impact on Recommendation |
 |--------|-------------|-------------------------|
-| No Significant History | No prior surgeries or major complications | No override |
-| Minor Conditions | Dry eye, allergies, or similar conditions | No override |
-| **Previous Surgery/Conditions** | Prior eye surgery, glaucoma, etc. | **OVERRIDES ALL OTHER CRITERIA → Eyhance + Special Message** |
+| No Significant History | No prior surgeries, major complications, dry eye, or allergies | No override |
+| **Previous Surgery/Conditions** | Prior eye surgery, glaucoma, macular degeneration, etc. | **OVERRIDES ALL OTHER CRITERIA → Eyhance + Special Message** |
 
 **Safety Note**: Significant eye history always results in Eyhance recommendation regardless of other preferences, as it is the safest option for complex cases. The special eye history override message is displayed.
 
@@ -158,7 +155,7 @@ This message ONLY appears when:
 |--------|-------------|-------------------------|
 | **Yes** | Diagnosed with astigmatism | **Applies Toric variant** to base model |
 | No | No astigmatism | Standard (non-Toric) version |
-| Not Sure | Need to check with eye doctor | Standard (non-Toric) version |
+| Not Sure | Need to check with eye doctor | **Shows BOTH Toric and non-Toric options** (e.g., "TECNIS Odyssey™ IOL or TECNIS Odyssey™ Toric II IOL") |
 
 ---
 
@@ -234,7 +231,7 @@ This message ONLY appears when:
 | 4 | sports, driving | **Don't mind** | Occasionally | None | Yes | **Eyhance Toric II** | No |
 | 5 | **Not sure** | Nice not to wear | Rarely | None | No | **Eyhance** (safe default) | No |
 | 6 | sports, driving (no near) | **Hate glasses** | Rarely | None | No | **Eyhance** (no near activities) | No |
-| 7 | reading, computer (near only) | **Nice not to wear** | Rarely | None | No | **Eyhance** (no intermediate) | No |
+| 7 | reading, crafts (near only) | **Nice not to wear** | Rarely | None | No | **Eyhance** (no intermediate) | No |
 
 **Key Insight**: Eyhance is recommended when:
 - Patient has significant eye history (safety override) - **shows amber message**
@@ -249,13 +246,14 @@ This message ONLY appears when:
 |---|------------|--------------|---------------|-------------|-------------|------------|
 | 1 | sports, driving | **Nice not to wear** | Rarely | None | No | **PureSee** |
 | 2 | driving | **Nice not to wear** | **Frequently** | None | No | **PureSee** |
-| 3 | sports | **Nice not to wear** | **Occasionally** | Minor | No | **PureSee** |
+| 3 | computer, sports | **Nice not to wear** | **Occasionally** | None | No | **PureSee** |
 | 4 | sports, driving | **Nice not to wear** | Frequently | None | Yes | **PureSee Toric** |
 | 5 | reading (near only) | **Nice not to wear** | **Frequently** | None | No | **PureSee** (night driving qualifies) |
+| 6 | computer | **Nice not to wear** | Occasionally | None | Not Sure | **PureSee or PureSee Toric** |
 
 **Key Insight**: PureSee is recommended when:
 - Patient prefers less glasses dependence ("nice not to wear")
-- AND has intermediate activities (sports/driving) OR drives at night frequently/occasionally
+- AND has intermediate activities (computer/sports/driving) OR drives at night frequently/occasionally
 - No significant eye history
 
 ---
@@ -265,15 +263,15 @@ This message ONLY appears when:
 | # | Activities | Glasses Pref | Night Driving | Eye History | Astigmatism | **Result** |
 |---|------------|--------------|---------------|-------------|-------------|------------|
 | 1 | **reading** | **Hate glasses** | Rarely | None | No | **Odyssey** |
-| 2 | **computer** | **Hate glasses** | Occasionally | None | No | **Odyssey** |
-| 3 | **reading, computer, crafts** | **Hate glasses** | Frequently | None | No | **Odyssey** |
-| 4 | **reading, driving** | **Hate glasses** | Rarely | Minor | No | **Odyssey** |
+| 2 | **crafts** | **Hate glasses** | Occasionally | None | No | **Odyssey** |
+| 3 | **reading, crafts** | **Hate glasses** | Frequently | None | No | **Odyssey** |
+| 4 | **reading, driving** | **Hate glasses** | Rarely | None | No | **Odyssey** |
 | 5 | **crafts** | **Hate glasses** | Rarely | None | Yes | **Odyssey Toric II** |
-| 6 | **reading, computer** | **Hate glasses** | Rarely | None | Yes | **Odyssey Toric II** |
+| 6 | **reading, crafts** | **Hate glasses** | Rarely | None | Not Sure | **Odyssey or Odyssey Toric II** |
 
 **Key Insight**: Odyssey is recommended when:
 - Patient strongly dislikes glasses ("hate glasses")
-- AND has at least one near activity (reading, computer, or crafts)
+- AND has at least one near activity (reading or crafts)
 - No significant eye history
 
 ---
@@ -283,10 +281,10 @@ This message ONLY appears when:
 | Scenario | Expected Behavior | Rationale |
 |----------|-------------------|-----------|
 | "Not sure" activities + any preference | **Eyhance** | Can't determine activity needs, default to safest |
-| Hate glasses but ONLY sports/driving (no near) | **Eyhance** | Odyssey requires near activities to justify full multifocal |
-| Nice not to wear but ONLY reading (no intermediate) + rarely drives at night | **Eyhance** | PureSee requires intermediate focus or night driving |
+| Hate glasses but ONLY computer/sports/driving (no near) | **Eyhance** | Odyssey requires near activities (reading/crafts) to justify full multifocal |
+| Nice not to wear but ONLY reading/crafts (no intermediate) + rarely drives at night | **Eyhance** | PureSee requires intermediate focus or night driving |
 | Any combination with significant eye history | **Eyhance + Override Message** | Safety always takes priority |
-| Astigmatism = "not sure" | **Non-Toric version** | Err on side of caution, doctor will confirm |
+| Astigmatism = "not sure" | **Shows BOTH versions** (e.g., "IOL or IOL Toric") | Avoids cost surprise when patient learns they have astigmatism at practice visit |
 
 ---
 
@@ -303,7 +301,7 @@ The results page includes a visual comparison chart showing the 3 base products:
 **Legend**:
 - ✓ = Feature/capability available
 - ✗ = Feature/capability not available
-- *TECNIS PureSee™: May need glasses for fine print or extended close reading
+- *TECNIS PureSee™: May need glasses for fine print
 
 ---
 
