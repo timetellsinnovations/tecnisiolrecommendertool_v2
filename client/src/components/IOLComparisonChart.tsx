@@ -146,7 +146,7 @@ export const IOLComparisonChart = () => {
         
         {/* Footnote for PureSee */}
         <div className="mt-3 text-xs sm:text-sm text-muted-foreground" data-testid="text-puresee-footnote">
-          <span className="font-medium">*</span> TECNIS PureSee™: May need glasses for fine print or extended close reading
+          <span className="font-medium">*</span> TECNIS PureSee™: May need glasses for fine print
         </div>
       </div>
 

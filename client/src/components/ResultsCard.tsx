@@ -20,10 +20,10 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
   // Get the base model name for the CTA (without Toric suffix)
   const getBaseModelName = () => {
     switch (results.baseModel) {
-      case 'odyssey': return 'TECNIS Odyssey';
-      case 'puresee': return 'TECNIS PureSee';
-      case 'eyhance': return 'TECNIS Eyhance';
-      default: return 'TECNIS Eyhance';
+      case 'odyssey': return 'TECNIS Odyssey™';
+      case 'puresee': return 'TECNIS PureSee™';
+      case 'eyhance': return 'TECNIS Eyhance™';
+      default: return 'TECNIS Eyhance™';
     }
   };
 
