@@ -44,8 +44,7 @@ const QUESTIONS: Question[] = [
     help: "This information helps guide appropriate IOL recommendations.",
     type: 'single',
     options: [
-      { id: 'none', text: 'No Significant History', description: 'No prior surgeries or major complications', icon: 'check' },
-      { id: 'minor', text: 'Minor Conditions', description: 'Dry eye, allergies, or similar conditions', icon: 'droplet' },
+      { id: 'none', text: 'No Significant History', description: 'No prior surgeries, major complications, dry eye, allergies, or similar conditions', icon: 'check' },
       { id: 'significant', text: 'Previous Surgery/Conditions', description: 'Prior eye surgery, glaucoma, etc.', icon: 'medical' }
     ]
   },
@@ -204,11 +203,12 @@ export const useAssessment = () => {
     const hasAstigmatism = astigmatism === 'yes';
 
     // Analyze activities for near vs intermediate/distance focus
+    // Near: reading, crafts | Intermediate: computer, sports, driving
     const nearActivities = activities.filter(a => 
-      ['reading', 'computer', 'crafts'].includes(a)
+      ['reading', 'crafts'].includes(a)
     );
     const intermediateActivities = activities.filter(a => 
-      ['sports', 'driving'].includes(a)
+      ['computer', 'sports', 'driving'].includes(a)
     );
 
     // Track match reasons and eye history override
@@ -223,14 +223,15 @@ export const useAssessment = () => {
       baseModel = 'eyhance';
       isEyeHistoryOverride = true;
       matchReasons.push('You indicated previous eye surgery or conditions');
+      matchReasons.push('Your eye care professional will discuss all available options based on your specific situation');
     }
     // Hate glasses + near activities → Odyssey
     else if (glassesFeeling === 'hate-glasses' && nearActivities.length > 0) {
       baseModel = 'odyssey';
-      matchReasons.push('Your goal of not wearing glasses');
+      matchReasons.push('Your goal of spectacle independence');
       if (nearActivities.includes('reading')) matchReasons.push('Reading activities');
-      if (nearActivities.includes('computer')) matchReasons.push('Computer work');
       if (nearActivities.includes('crafts')) matchReasons.push('Detail work and crafts');
+      if (intermediateActivities.includes('computer')) matchReasons.push('Computer work');
       if (nightDriving === 'frequently') matchReasons.push('Frequent night driving');
       else if (nightDriving === 'occasionally') matchReasons.push('Occasional night driving');
     }
@@ -256,25 +257,30 @@ export const useAssessment = () => {
       matchReasons.push('Based on your overall responses');
     }
 
+    // Handle astigmatism "not sure" - show both options
+    const astigmatismNotSure = astigmatism === 'not-sure';
+
     // Map to IOL recommendations with patient-friendly language
     const iolMapping = {
       eyhance: {
-        name: hasAstigmatism ? 'TECNIS Eyhance™ Toric II IOL' : 'TECNIS Eyhance™ IOL',
+        name: astigmatismNotSure 
+          ? 'TECNIS Eyhance™ IOL or TECNIS Eyhance™ Toric II IOL'
+          : (hasAstigmatism ? 'TECNIS Eyhance™ Toric II IOL' : 'TECNIS Eyhance™ IOL'),
         benefits: hasAstigmatism ? [
           'Clear distance vision for driving and outdoor activities',
-          'Improved arm\'s length vision for phones, dashboards, and cooking',
           'Corrects astigmatism for sharper, clearer vision',
           'Low risk of halos and glare at night',
           'Exceptional lens stability and positioning'
         ] : [
           'Clear distance vision for driving and outdoor activities',
-          'Improved arm\'s length vision for phones, dashboards, and cooking',
           'Low risk of halos and glare at night',
           'Proven safety and reliability'
         ]
       },
       puresee: {
-        name: hasAstigmatism ? 'TECNIS PureSee™ Toric IOL' : 'TECNIS PureSee™ IOL',
+        name: astigmatismNotSure
+          ? 'TECNIS PureSee™ IOL or TECNIS PureSee™ Toric IOL'
+          : (hasAstigmatism ? 'TECNIS PureSee™ Toric IOL' : 'TECNIS PureSee™ IOL'),
         benefits: hasAstigmatism ? [
           'Seamless vision from distance to arm\'s length',
           'Great for active lifestyles including golf and sports',
@@ -289,19 +295,17 @@ export const useAssessment = () => {
         ]
       },
       odyssey: {
-        name: hasAstigmatism ? 'TECNIS Odyssey™ Toric II IOL' : 'TECNIS Odyssey™ IOL',
+        name: astigmatismNotSure
+          ? 'TECNIS Odyssey™ IOL or TECNIS Odyssey™ Toric II IOL'
+          : (hasAstigmatism ? 'TECNIS Odyssey™ Toric II IOL' : 'TECNIS Odyssey™ IOL'),
         benefits: hasAstigmatism ? [
           'Complete range of vision - near, intermediate, and far',
           'Freedom from glasses for nearly all activities',
-          'Read small print on phones and tablets easily',
-          'Two times better contrast in dim lighting than competing lenses',
           'Corrects astigmatism while providing full visual range',
           '93% of patients report minimal or no halos and glare'
         ] : [
           'Complete range of vision - near, intermediate, and far',
           'Freedom from glasses for nearly all activities',
-          'Read small print on phones and tablets easily',
-          'Two times better contrast in dim lighting than competing lenses',
           '93% of patients report minimal or no halos and glare'
         ]
       }
