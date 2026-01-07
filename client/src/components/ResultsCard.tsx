@@ -104,9 +104,8 @@ export const ResultsCard = ({ results, onPrint, onRestart }: ResultsCardProps) =
         >
           <h3 className="text-base sm:text-lg font-semibold text-amber-900 dark:text-amber-100 mb-2 sm:mb-3">Important Information</h3>
           <p className="text-xs sm:text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
-            Because you indicated previous eye surgery or conditions, this may affect which lens options are best for you. 
-            Some advanced technology lenses may not be suitable depending on your specific situation. 
-            <strong> Talk to your eye care professional about what option is right for you</strong> — they will evaluate your individual circumstances and discuss all available choices.
+            Because you selected you have previous eye surgery and conditions, that may exclude you from technologies outside of the basic IOL. 
+            <strong>Talk to your eye doctor about this in more detail</strong> — they will evaluate your individual circumstances and discuss all available choices.
           </p>
         </div>
       )}

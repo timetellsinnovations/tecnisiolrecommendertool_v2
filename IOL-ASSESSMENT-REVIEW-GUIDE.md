@@ -54,7 +54,7 @@ Shows the specific user answers that led to the recommendation:
 When Eyhance is recommended due to significant eye history (not by preference), an amber-colored message appears:
 
 > **Important Information**  
-> Because you indicated previous eye surgery or conditions, this may affect which lens options are best for you. Some advanced technology lenses may not be suitable depending on your specific situation. **Talk to your eye care professional about what option is right for you** — they will evaluate your individual circumstances and discuss all available choices.
+> Because you selected you have previous eye surgery and conditions, that may exclude you from technologies outside of the basic IOL. **Talk to your eye doctor about this in more detail** — they will evaluate your individual circumstances and discuss all available choices.
 
 This message ONLY appears when:
 - Patient selected "Previous Surgery/Conditions" for eye history
@@ -65,13 +65,13 @@ This message ONLY appears when:
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
 ### TECNIS Eyhance™ (Enhanced Monofocal)
-- **Visual Range**: Distance only
+- **Visual Range**: Distance + Intermediate
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
   - Clear distance vision for driving and outdoor activities
   - Low risk of halos and glare at night
   - Proven safety and reliability
-- **Requires Glasses For**: Intermediate and near tasks (reading, computer, fine print)
+- **Requires Glasses For**: Near tasks (reading, fine print)
 
 ### TECNIS PureSee™ (Extended Depth of Focus - EDOF)
 - **Visual Range**: Distance + Intermediate + Near*
@@ -84,10 +84,10 @@ This message ONLY appears when:
 - **May Need Glasses For**: *Fine print
 
 ### TECNIS Odyssey™ (Full Visual Range Multifocal)
-- **Visual Range**: Distance + Intermediate + Near (Complete Range)
+- **Visual Range**: Distance + Intermediate + Near
 - **Best For**: Patients who strongly want spectacle independence
 - **Key Benefits**:
-  - Complete range of vision - near, intermediate, and far
+  - Full range of vision - near, intermediate, and far
   - Freedom from glasses for nearly all activities
   - 93% of patients report minimal or no halos and glare
 - **Trade-offs**: May experience some halos/glare (though minimal with this lens)
@@ -132,7 +132,7 @@ This message ONLY appears when:
 |--------|-------------|-------------------------|
 | Frequently | Regular night driving or low-light activities | Can trigger PureSee (with "nice not to wear" preference) |
 | Occasionally | Some evening or challenging condition driving | Can trigger PureSee (with "nice not to wear" preference) |
-| Rarely or Never | Minimal night or challenging condition driving | No impact on recommendation |
+| Rarely or Never | Minimal night or challenging condition driving | No impact on recommendation (does not trigger Odyssey alone; Odyssey requires near activities + "hate glasses") |
 
 ---
 
@@ -290,13 +290,16 @@ This message ONLY appears when:
 
 ## IOL Comparison Chart (Displayed on Results Page)
 
-The results page includes a visual comparison chart showing the 3 base products:
+The results page includes a visual comparison chart showing all 6 approved products:
 
-| IOL Product | Distance | Intermediate | Near | Available for Astigmatism Correction |
-|-------------|:--------:|:------------:|:----:|:------------------------------------:|
-| TECNIS Eyhance™ | ✓ | ✗ | ✗ | ✓ |
-| TECNIS PureSee™ | ✓ | ✓ | ✓* | ✓ |
-| TECNIS Odyssey™ | ✓ | ✓ | ✓ | ✓ |
+| IOL Product | Distance | Intermediate | Near | Astigmatism |
+|-------------|:--------:|:------------:|:----:|:-----------:|
+| TECNIS Eyhance™ | ✓ | ✓ | ✗ | ✗ |
+| TECNIS Eyhance™ Toric II | ✓ | ✓ | ✗ | ✓ |
+| TECNIS PureSee™ | ✓ | ✓ | ✓* | ✗ |
+| TECNIS PureSee™ Toric | ✓ | ✓ | ✓* | ✓ |
+| TECNIS Odyssey™ | ✓ | ✓ | ✓ | ✗ |
+| TECNIS Odyssey™ Toric II | ✓ | ✓ | ✓ | ✓ |
 
 **Legend**:
 - ✓ = Feature/capability available

@@ -299,12 +299,12 @@ export const useAssessment = () => {
           ? 'TECNIS Odyssey™ IOL or TECNIS Odyssey™ Toric II IOL'
           : (hasAstigmatism ? 'TECNIS Odyssey™ Toric II IOL' : 'TECNIS Odyssey™ IOL'),
         benefits: hasAstigmatism ? [
-          'Complete range of vision - near, intermediate, and far',
+          'Full range of vision - near, intermediate, and far',
           'Freedom from glasses for nearly all activities',
           'Corrects astigmatism while providing full visual range',
           '93% of patients report minimal or no halos and glare'
         ] : [
-          'Complete range of vision - near, intermediate, and far',
+          'Full range of vision - near, intermediate, and far',
           'Freedom from glasses for nearly all activities',
           '93% of patients report minimal or no halos and glare'
         ]
