@@ -65,35 +65,32 @@ This message ONLY appears when:
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
 ### TECNIS Eyhance™ (Enhanced Monofocal)
-- **Visual Range**: Distance only [1]
+- **Visual Range**: Distance only
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
   - Clear distance vision for driving and outdoor activities
   - Low risk of halos and glare at night
   - Proven safety and reliability
 - **Requires Glasses For**: Intermediate and Near tasks (reading, fine print, computer)
-- **FDA Approval**: P980040/S117 (February 1, 2021) [1]
 
 ### TECNIS PureSee™ (Extended Depth of Focus - EDOF)
-- **Visual Range**: Distance + Intermediate + Near* [2]
+- **Visual Range**: Distance + Intermediate + Near*
 - **Best For**: Active patients wanting reduced glasses dependence
 - **Key Benefits**:
   - Seamless vision from distance to near (may need glasses for fine print)
   - Great for active lifestyles including golf and sports
   - Excellent performance in low light and night driving
-  - Minimal visual disturbances - similar to standard lenses [3]
+  - Minimal visual disturbances - similar to standard lenses
 - **May Need Glasses For**: *Fine print
-- **Clinical Data**: 91.7% not bothered by halos, 95% not bothered by glare [3]
 
 ### TECNIS Odyssey™ (Full Visual Range Multifocal)
-- **Visual Range**: Distance + Intermediate + Near [4]
+- **Visual Range**: Distance + Intermediate + Near
 - **Best For**: Patients who strongly want spectacle independence
 - **Key Benefits**:
   - Full range of vision - near, intermediate, and far
   - Freedom from glasses for nearly all activities
-  - 93% of patients report minimal or no halos and glare [5]
+  - 93% of patients report minimal or no halos and glare
 - **Trade-offs**: May experience some halos/glare (though minimal with this lens)
-- **FDA Approval**: P980040/S159 [4]
 
 ---
 
@@ -336,7 +333,7 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ### Data Sources
 - Product specifications based on official J&J Vision TECNIS™ documentation
-- Visual capabilities verified against published clinical data and FDA approvals
+- Visual capabilities verified against published clinical data
 - Decision criteria aligned with ophthalmology best practices
 
 ### Code Location
@@ -380,54 +377,3 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 ---
 
 **Document prepared for internal review. Not for patient distribution.**
-
----
-
-## References & Citations
-
-**[1] TECNIS Eyhance™ FDA Approval**
-- FDA PMA: P980040/S117 (February 1, 2021)
-- J&J Vision Product Page: https://www.jnjvisionpro.com/en-us/products/tecnis-eyhance/
-- FDA Classification: Enhanced Monofocal IOL
-- Source: Johnson & Johnson MedTech Press Release, February 1, 2021
-
-**[2] TECNIS PureSee™ Clinical Trial**
-- Clinical Trial: NCT04890249 (Australia/New Zealand)
-- Published in: *Eye* (Nature), November 2024
-- Study: Prospective, multicenter, randomized, masked trial (N=117 patients)
-- Source: PMC11080637, doi: 10.1038/s41433-024-03039-8
-
-**[3] TECNIS PureSee™ Dysphotopsia Data**
-- Study Results: 91.7% not bothered by halos, 95.0% not bothered by glare
-- Spectacle Independence: 86.3% overall, 96.8% distance, 94.7% intermediate
-- Source: ESCRS Real-World Study (ESCRS25-FP-2396), September 2025
-- J&J MedTech Press Release: "Johnson & Johnson Presents New Real-World Data for TECNIS PureSee™ IOL at ESCRS 2025"
-
-**[4] TECNIS Odyssey™ FDA Approval**
-- FDA PMA: P980040/S159
-- First IOL to meet ISO 11979-7:2024 Full Visual Range (FVR) standard
-- J&J Vision Product Page: https://www.jnjvisionpro.com/en-us/products/tecnis-odyssey/
-- FDA Device Listing: AccessGUDID #05050474810693
-
-**[5] TECNIS Odyssey™ Clinical Data (93% Halos/Glare)**
-- Study: Real-world retrospective, multi-center analysis (n=96 eyes, 1-month post-op)
-- Result: 93% of patients reported NO or MILD halos, glare, or starbursts
-- Source: Hacopian et al. (ASCRS 2025) - Real-world interim data
-- Additional: Waring et al. (ASCRS 2024) - 1-month depth of focus outcomes
-
-**[6] General TECNIS Platform References**
-- J&J Vision Professional Portal: https://www.jnjvisionpro.com/
-- Patient Information: https://www.clearvisionforyou.com/
-- Clinical Studies Registry: https://clinicaltrials.gov/ (Search: TECNIS)
-
----
-
-### Citation Maintenance Note
-
-⚠️ **Review Requirement**: These citations should be reviewed during medical/legal updates to ensure:
-- FDA approval statuses remain current
-- Clinical study data reflects latest publications
-- Product specifications align with current J&J Vision documentation
-- All referenced URLs remain active and accessible
-
-**Last Citation Review**: January 2026
