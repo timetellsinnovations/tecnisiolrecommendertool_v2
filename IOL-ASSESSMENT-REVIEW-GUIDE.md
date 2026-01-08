@@ -339,6 +339,48 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 - Visual capabilities verified against published clinical data and FDA approvals
 - Decision criteria aligned with ophthalmology best practices
 
+### Code Location
+- Assessment logic: `client/src/hooks/useAssessment.tsx`
+- Results display: `client/src/components/ResultsCard.tsx`
+- Comparison chart: `client/src/components/IOLComparisonChart.tsx`
+- Types: `client/src/types/assessment.ts`
+
+### Key Data Fields in Results
+- `primaryIOL`: Full IOL name including Toric suffix if applicable
+- `baseModel`: 'eyhance' | 'puresee' | 'odyssey' (used for CTA display)
+- `matchScore`: Confidence percentage (85-95%)
+- `matchReasons`: Array of strings explaining why this recommendation was made
+- `isEyeHistoryOverride`: Boolean indicating if Eyhance was chosen due to safety override
+- `benefits`: Array of patient-friendly benefit descriptions
+- `considerations`: Array of important disclaimers
+
+### Testing Coverage
+- All logic paths validated through automated end-to-end tests
+- Edge cases validated for safe defaults
+- Responsive design tested on mobile, tablet, and desktop
+
+---
+
+## Questions for Review Team
+
+1. **Decision Logic**: Does the criteria-based algorithm accurately reflect clinical best practices for IOL selection?
+
+2. **Product Benefits**: Are the patient-friendly benefit descriptions accurate and appropriate?
+
+3. **Edge Cases**: Are the safe defaults (defaulting to Eyhance) appropriate for unclear scenarios?
+
+4. **Comparison Chart**: Does the simplified 3-product capability matrix accurately represent each product's visual range?
+
+5. **Eye History Override**: Is the amber warning message appropriate for patients with significant eye history?
+
+6. **"Why You Matched"**: Are the match reason descriptions clear and helpful for patients?
+
+7. **Disclaimers**: Is the medical disclaimer comprehensive enough for regulatory compliance?
+
+---
+
+**Document prepared for internal review. Not for patient distribution.**
+
 ---
 
 ## References & Citations
@@ -389,45 +431,3 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 - All referenced URLs remain active and accessible
 
 **Last Citation Review**: January 2026
-
-### Code Location
-- Assessment logic: `client/src/hooks/useAssessment.tsx`
-- Results display: `client/src/components/ResultsCard.tsx`
-- Comparison chart: `client/src/components/IOLComparisonChart.tsx`
-- Types: `client/src/types/assessment.ts`
-
-### Key Data Fields in Results
-- `primaryIOL`: Full IOL name including Toric suffix if applicable
-- `baseModel`: 'eyhance' | 'puresee' | 'odyssey' (used for CTA display)
-- `matchScore`: Confidence percentage (85-95%)
-- `matchReasons`: Array of strings explaining why this recommendation was made
-- `isEyeHistoryOverride`: Boolean indicating if Eyhance was chosen due to safety override
-- `benefits`: Array of patient-friendly benefit descriptions
-- `considerations`: Array of important disclaimers
-
-### Testing Coverage
-- All logic paths validated through automated end-to-end tests
-- Edge cases validated for safe defaults
-- Responsive design tested on mobile, tablet, and desktop
-
----
-
-## Questions for Review Team
-
-1. **Decision Logic**: Does the criteria-based algorithm accurately reflect clinical best practices for IOL selection?
-
-2. **Product Benefits**: Are the patient-friendly benefit descriptions accurate and appropriate?
-
-3. **Edge Cases**: Are the safe defaults (defaulting to Eyhance) appropriate for unclear scenarios?
-
-4. **Comparison Chart**: Does the simplified 3-product capability matrix accurately represent each product's visual range?
-
-5. **Eye History Override**: Is the amber warning message appropriate for patients with significant eye history?
-
-6. **"Why You Matched"**: Are the match reason descriptions clear and helpful for patients?
-
-7. **Disclaimers**: Is the medical disclaimer comprehensive enough for regulatory compliance?
-
----
-
-**Document prepared for internal review. Not for patient distribution.**
