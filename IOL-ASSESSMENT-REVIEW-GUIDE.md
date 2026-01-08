@@ -65,19 +65,19 @@ This message ONLY appears when:
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
 ### TECNIS Eyhance™ (Enhanced Monofocal)
-- **Visual Range**: Distance + Intermediate
+- **Visual Range**: Distance only
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
   - Clear distance vision for driving and outdoor activities
   - Low risk of halos and glare at night
   - Proven safety and reliability
-- **Requires Glasses For**: Near tasks (reading, fine print)
+- **Requires Glasses For**: Intermediate and Near tasks (reading, fine print, computer)
 
 ### TECNIS PureSee™ (Extended Depth of Focus - EDOF)
 - **Visual Range**: Distance + Intermediate + Near*
 - **Best For**: Active patients wanting reduced glasses dependence
 - **Key Benefits**:
-  - Seamless vision from distance to arm's length
+  - Seamless vision from distance to near (may need glasses for fine print)
   - Great for active lifestyles including golf and sports
   - Excellent performance in low light and night driving
   - Minimal visual disturbances - similar to standard lenses
@@ -132,7 +132,7 @@ This message ONLY appears when:
 |--------|-------------|-------------------------|
 | Frequently | Regular night driving or low-light activities | Can trigger PureSee (with "nice not to wear" preference) |
 | Occasionally | Some evening or challenging condition driving | Can trigger PureSee (with "nice not to wear" preference) |
-| Rarely or Never | Minimal night or challenging condition driving | No impact on recommendation (does not trigger Odyssey alone; Odyssey requires near activities + "hate glasses") |
+| Rarely or Never | Minimal night or challenging condition driving | No impact on recommendation (Odyssey can still be triggered with near activities + "hate glasses" regardless of night driving frequency) |
 
 ---
 

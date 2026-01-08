@@ -5,7 +5,7 @@ export const IOLComparisonChart = () => {
     {
       name: 'TECNIS Eyhance™',
       distance: true,
-      intermediate: true,
+      intermediate: false,
       near: false,
       nearNote: null,
       astigmatism: false,
@@ -13,7 +13,7 @@ export const IOLComparisonChart = () => {
     {
       name: 'TECNIS Eyhance™ Toric II',
       distance: true,
-      intermediate: true,
+      intermediate: false,
       near: false,
       nearNote: null,
       astigmatism: true,

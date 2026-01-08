@@ -226,6 +226,7 @@ export const useAssessment = () => {
       matchReasons.push('Your eye care professional will discuss all available options based on your specific situation');
     }
     // Hate glasses + near activities → Odyssey
+    // Also triggers with "occasionally" night driving when paired with near tasks + hate glasses
     else if (glassesFeeling === 'hate-glasses' && nearActivities.length > 0) {
       baseModel = 'odyssey';
       matchReasons.push('Your goal of spectacle independence');
@@ -234,6 +235,7 @@ export const useAssessment = () => {
       if (intermediateActivities.includes('computer')) matchReasons.push('Computer work');
       if (nightDriving === 'frequently') matchReasons.push('Frequent night driving');
       else if (nightDriving === 'occasionally') matchReasons.push('Occasional night driving');
+      else if (nightDriving === 'rarely') matchReasons.push('Minimal night driving requirements');
     }
     // Nice not to wear + intermediate activities → PureSee
     else if (glassesFeeling === 'nice-not-to-wear' && (intermediateActivities.length > 0 || nightDriving === 'frequently' || nightDriving === 'occasionally')) {
@@ -282,13 +284,13 @@ export const useAssessment = () => {
           ? 'TECNIS PureSee™ IOL or TECNIS PureSee™ Toric IOL'
           : (hasAstigmatism ? 'TECNIS PureSee™ Toric IOL' : 'TECNIS PureSee™ IOL'),
         benefits: hasAstigmatism ? [
-          'Seamless vision from distance to arm\'s length',
+          'Seamless vision from distance to near (may need glasses for fine print)',
           'Great for active lifestyles including golf and sports',
           'Excellent performance in low light and night driving',
           'Corrects astigmatism for enhanced clarity',
           'Minimal visual disturbances - similar to standard lenses'
         ] : [
-          'Seamless vision from distance to arm\'s length',
+          'Seamless vision from distance to near (may need glasses for fine print)',
           'Great for active lifestyles including golf and sports',
           'Excellent performance in low light and night driving',
           'Minimal visual disturbances - similar to standard lenses'
