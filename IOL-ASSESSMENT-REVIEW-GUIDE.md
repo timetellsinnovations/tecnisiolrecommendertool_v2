@@ -2,7 +2,7 @@
 
 **Document Purpose**: Comprehensive guide for team review of the IOL recommendation logic, question flow, and all possible outcomes.
 
-**Last Updated**: December 19, 2025
+**Last Updated**: January 9, 2026
 
 ---
 
@@ -64,33 +64,39 @@ This message ONLY appears when:
 
 ## IOL Product Specifications (Based on J&J Vision Official Data)
 
-### TECNIS Eyhance™ (Enhanced Monofocal)
-- **Visual Range**: Distance only
+### TECNIS Eyhance™ (Enhanced Monofocal) [REF-1]
+- **Visual Range**: Distance only [REF-1, Section: Indications]
 - **Best For**: Patients comfortable with reading glasses
 - **Key Benefits**:
-  - Clear distance vision for driving and outdoor activities
-  - Low risk of halos and glare at night
-  - Proven safety and reliability
+  - Clear distance vision for driving and outdoor activities [REF-1, Section: Optical Design]
+  - Low risk of halos and glare at night [REF-1, Section: Clinical Performance]
+  - Proven safety and reliability [REF-1, Section: Adverse Events]
 - **Requires Glasses For**: Intermediate and Near tasks (reading, fine print, computer)
+- **Model Numbers**: ICB00 (non-preloaded), DIB00 (preloaded) [REF-1]
+- **A-Constant**: 119.3 (Optical), 118.8 (US) [REF-1, Section: Technical Specifications]
 
-### TECNIS PureSee™ (Extended Depth of Focus - EDOF)
-- **Visual Range**: Distance + Intermediate + Near*
+### TECNIS PureSee™ (Extended Depth of Focus - EDOF) [REF-2]
+- **Visual Range**: Distance + Intermediate + Near* [REF-2, Section: Indications]
 - **Best For**: Active patients wanting reduced glasses dependence
 - **Key Benefits**:
-  - Seamless vision from distance to near (may need glasses for fine print)
-  - Great for active lifestyles including golf and sports
-  - Excellent performance in low light and night driving
-  - Minimal visual disturbances - similar to standard lenses
-- **May Need Glasses For**: *Fine print
+  - Seamless vision from distance to near (may need glasses for fine print) [REF-2, REF-5]
+  - Great for active lifestyles including golf and sports [REF-2, Section: Patient Profiles]
+  - Excellent performance in low light and night driving [REF-5, DOF2023CT4011]
+  - Minimal visual disturbances - similar to standard lenses [REF-5, DOF2023CT4011]
+- **May Need Glasses For**: *Fine print [REF-2, Section: Indications]
+- **Model Numbers**: ZEN00V (non-toric), DEN00V (preloaded) [REF-2]
+- **Patient Satisfaction**: 97% would recommend to friends/relatives [REF-5, DOF2023CT4043]
 
-### TECNIS Odyssey™ (Full Visual Range Multifocal)
-- **Visual Range**: Distance + Intermediate + Near
+### TECNIS Odyssey™ (Full Visual Range Multifocal) [REF-3]
+- **Visual Range**: Distance + Intermediate + Near [REF-3, Section: Indications]
 - **Best For**: Patients who strongly want spectacle independence
 - **Key Benefits**:
-  - Full range of vision - near, intermediate, and far
-  - Freedom from glasses for nearly all activities
-  - 93% of patients report minimal or no halos and glare
-- **Trade-offs**: May experience some halos/glare (though minimal with this lens)
+  - Full range of vision - near, intermediate, and far [REF-3, Section: Clinical Performance]
+  - Freedom from glasses for nearly all activities [REF-6, DOF2023CT4050]
+  - 93% of patients report minimal or no halos and glare [REF-6, DOF2023CT4050, 1-month post-op]
+- **Trade-offs**: May experience some halos/glare (though minimal with this lens) [REF-3, Section: Warnings]
+- **Model Numbers**: DRN00V (non-toric), DRT150-DRT375 (toric) [REF-3]
+- **Low-Light Performance**: 2× better contrast vs. PanOptix [REF-6, 2024DOF4030]
 
 ---
 
@@ -331,29 +337,45 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ## Official References & Source Documents
 
+### Numbered Reference Bibliography
+
+The following reference IDs are used as inline citations throughout this document:
+
+| Ref ID | Document Title | Document Number | Publisher | Key Sections |
+|--------|---------------|-----------------|-----------|--------------|
+| **[REF-1]** | TECNIS Eyhance IOL Directions for Use | Z311769E (US), Z311583 (INT) | Johnson & Johnson Surgical Vision | Indications, Optical Design, Clinical Performance, Adverse Events, Technical Specifications |
+| **[REF-2]** | TECNIS PureSee IOL Directions for Use | Z311973 (INT), Z311782 (preloaded) | Johnson & Johnson Surgical Vision | Indications, Patient Profiles, Clinical Performance |
+| **[REF-3]** | TECNIS Odyssey IOL Directions for Use | Z311926E Rev B 07/2023 (US), Z311982E (EU) | Johnson & Johnson Surgical Vision | Indications, Clinical Performance, Warnings |
+| **[REF-4]** | TECNIS Eyhance IOL Compendium | PP2022CT5439 | J&J Vision EMEA | 2H 2022 edition, full clinical compendium |
+| **[REF-5]** | TECNIS PureSee IOL Compendium | 2024 EMEA Edition | J&J Vision EMEA | Clinical data, patient satisfaction |
+| **[REF-6]** | TECNIS Odyssey IOL Clinical Studies (Data on File) | Multiple DOF refs | Johnson & Johnson | See Clinical Study References below |
+| **[REF-7]** | FDA AccessGUDID | 05050474810693 | U.S. FDA | Device identification, regulatory status |
+
+---
+
 ### Primary Source Documents (Johnson & Johnson Vision)
 
-#### TECNIS Eyhance™ IOL
+#### TECNIS Eyhance™ IOL [REF-1]
 | Document Type | Model | Document Number | Notes |
 |--------------|-------|-----------------|-------|
 | **DFU (US)** | DIB00 (preloaded) | Z311769E | U.S. Directions for Use |
 | **DFU (INT)** | ICB00 (non-preloaded) | Z311583 | International version |
 | **Toric II DFU** | ICU150-ICU600 | Z311058, Rev. 04 | Astigmatism correction |
-| **Compendium** | All Eyhance | PP2022CT5439 | TECNIS Eyhance Compendium 2H 2022 - EMEA |
+| **Compendium** [REF-4] | All Eyhance | PP2022CT5439 | TECNIS Eyhance Compendium 2H 2022 - EMEA |
 
 **Official Product Page:** https://www.jnjvisionpro.com/en-us/products/tecnis-eyhance/
 
-#### TECNIS PureSee™ IOL
+#### TECNIS PureSee™ IOL [REF-2]
 | Document Type | Model | Document Number | Notes |
 |--------------|-------|-----------------|-------|
 | **DFU (INT)** | ZEN00V (non-toric) | Z311973 | International Directions for Use |
 | **DFU (Preloaded)** | DEN00V | Z311782 | With TECNIS SIMPLICITY™ Delivery System |
 | **Toric II DFU** | DET100-DET600 | Z311783 | Astigmatism correction variants |
-| **Compendium** | All PureSee | 2024 EMEA | TECNIS PureSee IOL Compendium 2024 |
+| **Compendium** [REF-5] | All PureSee | 2024 EMEA | TECNIS PureSee IOL Compendium 2024 |
 
 **Official Product Page:** https://www.jnjvisionpro.com/en-eu/products/tecnis-puresee/
 
-#### TECNIS Odyssey™ IOL
+#### TECNIS Odyssey™ IOL [REF-3]
 | Document Type | Model | Document Number | Notes |
 |--------------|-------|-----------------|-------|
 | **DFU (US)** | DRN00V | Z311926E, Rev B 07/2023 | U.S. Directions for Use |
@@ -365,44 +387,53 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ---
 
-### Clinical Study References (Data on File - Johnson & Johnson)
+### Clinical Study References [REF-6] (Data on File - Johnson & Johnson)
 
 #### Odyssey IOL Clinical Data
-| Reference ID | Study Description | Sample Size |
-|-------------|-------------------|-------------|
-| **DOF2023CT4050** | Multicenter retrospective real-world study (1-month) | n=96 |
-| **2024DOF4029** | Multicenter observational study (3-month) | n=33 |
-| **DOF2023CT4023** | Simulated visual acuity, defocus curves | Bench |
-| **2024DOF4030** | Low-light contrast comparison vs. PanOptix | Bench |
-| **DOF2020CT4014** | Comparative clinical evaluation vs. PanOptix (Forte 1 study) | Clinical |
+| Reference ID | Study Description | Sample Size | Key Findings |
+|-------------|-------------------|-------------|--------------|
+| **DOF2023CT4050** | Multicenter retrospective real-world study (1-month) | n=96 | 93% minimal/no halos & glare |
+| **2024DOF4029** | Multicenter observational study (3-month) | n=33 | Spectacle independence data |
+| **DOF2023CT4023** | Simulated visual acuity, defocus curves | Bench | Full visual range validation |
+| **2024DOF4030** | Low-light contrast comparison vs. PanOptix | Bench | 2× better contrast in low light |
+| **DOF2020CT4014** | Comparative clinical evaluation vs. PanOptix (Forte 1 study) | Clinical | Full range of vision validation |
 
 #### PureSee IOL Clinical Data
-| Reference ID | Study Description |
-|-------------|-------------------|
-| **DOF2023CT4011** | Visual symptoms simulations |
-| **DOF2023CT4043** | Clinical investigation patient satisfaction outcomes |
+| Reference ID | Study Description | Key Findings |
+|-------------|-------------------|--------------|
+| **DOF2023CT4011** | Visual symptoms simulations | Minimal visual disturbances |
+| **DOF2023CT4043** | Clinical investigation patient satisfaction outcomes | 97% recommend, 100% no glasses for distance |
 
-#### Key Clinical Claims and Sources
-| Claim in Application | Source Reference |
-|---------------------|------------------|
-| "93% of patients report minimal or no halos and glare" (Odyssey) | DOF2023CT4050, 1-month post-op data |
-| "2× better contrast in low lighting" (Odyssey vs. PanOptix) | 2024DOF4030 |
-| "97% would recommend to friends/relatives" (PureSee) | DOF2023CT4043 |
-| "100% did not need glasses for distance" (PureSee) | DOF2023CT4043 |
+---
+
+### Claim-to-Source Traceability Matrix
+
+| Claim Used in Application | Source Reference | Document Section/Page |
+|--------------------------|------------------|----------------------|
+| "Distance only" (Eyhance visual range) | [REF-1] Z311769E | Section: Indications for Use |
+| "Distance + Intermediate + Near" (PureSee) | [REF-2] Z311973 | Section: Indications for Use |
+| "Full range of vision - near, intermediate, and far" (Odyssey) | [REF-3] Z311926E | Section: Clinical Performance |
+| "93% of patients report minimal or no halos and glare" | [REF-6] DOF2023CT4050 | 1-month post-op data |
+| "2× better contrast in low lighting" | [REF-6] 2024DOF4030 | Low-light comparison bench data |
+| "97% would recommend to friends/relatives" (PureSee) | [REF-6] DOF2023CT4043 | Patient satisfaction outcomes |
+| "Freedom from glasses for nearly all activities" | [REF-6] DOF2023CT4050 | Spectacle independence outcomes |
+| "May need glasses for fine print" (PureSee) | [REF-2] Z311973 | Section: Indications for Use |
+| "Low risk of halos and glare at night" (Eyhance) | [REF-1] Z311769E | Section: Clinical Performance |
+| Eye history safety override logic | [REF-1] Z311769E | Section: Warnings & Precautions |
 
 ---
 
 ### Published Clinical Studies
 
-1. **Dick, H. Burkhard MD, et al. (November 2022)** - "A Comparative Clinical Evaluation of a New TECNIS Presbyopia Correcting Intraocular Lens Against a Trifocal Intraocular Lens (Forte 1 Study)"
+1. **Dick, H. Burkhard MD, et al. (November 2022)** - "A Comparative Clinical Evaluation of a New TECNIS Presbyopia Correcting Intraocular Lens Against a Trifocal Intraocular Lens (Forte 1 Study)" - Referenced in [REF-6] DOF2020CT4014
 
-2. **Eye Journal (2024)** - "Quality of vision clinical outcomes for a new fully-refractive extended depth of focus Intraocular Lens" - PureSee clinical outcomes
+2. **Eye Journal (2024)** - "Quality of vision clinical outcomes for a new fully-refractive extended depth of focus Intraocular Lens" - PureSee clinical outcomes, DOI: 10.1038/s41433-024-03039-8
 
-3. **Holladay JT. Int'l IOL & Implant Registry 2003.** J Cataract Refract Surg. 2003; 29:176-197
+3. **Holladay JT. Int'l IOL & Implant Registry 2003.** J Cataract Refract Surg. 2003; 29:176-197 - A-constant references
 
 ---
 
-### FDA & Regulatory References
+### FDA & Regulatory References [REF-7]
 
 | Product | FDA GUDID | Regulatory Status |
 |---------|-----------|-------------------|
@@ -418,14 +449,14 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ### Product Technical Specifications
 
-#### Model Numbers & A-Constants
+#### Model Numbers & A-Constants [REF-1, REF-2, REF-3]
 | Product | Model (Non-Toric) | Model (Toric) | A-Constant (Optical) | A-Constant (US) |
 |---------|-------------------|---------------|---------------------|-----------------|
 | Eyhance | ICB00/DIB00 | ICU150-ICU600 | 119.3 | 118.8 |
 | PureSee | ZEN00V/DEN00V | DET100-DET600 | Per DFU | Per DFU |
 | Odyssey | DRN00V | DRT150-DRT375 | Per DFU | Per DFU |
 
-#### Material & Design (All TECNIS IOLs)
+#### Material & Design (All TECNIS IOLs) [REF-1, REF-2, REF-3]
 - **Material:** Hydrophobic acrylic with UV-absorbing properties
 - **Optic Diameter:** 6.0 mm
 - **Haptic Design:** Frosted haptics for rotational stability
@@ -449,6 +480,9 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 | Date | Change | Reference Updated |
 |------|--------|-------------------|
+| January 9, 2026 | Added inline citations [REF-X] throughout document | All sections |
+| January 9, 2026 | Added Numbered Reference Bibliography | New section |
+| January 9, 2026 | Added Claim-to-Source Traceability Matrix | New section |
 | January 2026 | Added official IFU/DFU document numbers | All products |
 | January 2026 | Added clinical study references (DOF numbers) | Odyssey, PureSee |
 | January 2026 | Added FDA GUDID and regulatory status | All products |
