@@ -329,12 +329,138 @@ The tool displays a "match score" (85-95%) indicating how well the patient's ans
 
 ---
 
+## Official References & Source Documents
+
+### Primary Source Documents (Johnson & Johnson Vision)
+
+#### TECNIS Eyhance™ IOL
+| Document Type | Model | Document Number | Notes |
+|--------------|-------|-----------------|-------|
+| **DFU (US)** | DIB00 (preloaded) | Z311769E | U.S. Directions for Use |
+| **DFU (INT)** | ICB00 (non-preloaded) | Z311583 | International version |
+| **Toric II DFU** | ICU150-ICU600 | Z311058, Rev. 04 | Astigmatism correction |
+| **Compendium** | All Eyhance | PP2022CT5439 | TECNIS Eyhance Compendium 2H 2022 - EMEA |
+
+**Official Product Page:** https://www.jnjvisionpro.com/en-us/products/tecnis-eyhance/
+
+#### TECNIS PureSee™ IOL
+| Document Type | Model | Document Number | Notes |
+|--------------|-------|-----------------|-------|
+| **DFU (INT)** | ZEN00V (non-toric) | Z311973 | International Directions for Use |
+| **DFU (Preloaded)** | DEN00V | Z311782 | With TECNIS SIMPLICITY™ Delivery System |
+| **Toric II DFU** | DET100-DET600 | Z311783 | Astigmatism correction variants |
+| **Compendium** | All PureSee | 2024 EMEA | TECNIS PureSee IOL Compendium 2024 |
+
+**Official Product Page:** https://www.jnjvisionpro.com/en-eu/products/tecnis-puresee/
+
+#### TECNIS Odyssey™ IOL
+| Document Type | Model | Document Number | Notes |
+|--------------|-------|-----------------|-------|
+| **DFU (US)** | DRN00V | Z311926E, Rev B 07/2023 | U.S. Directions for Use |
+| **Toric II DFU** | DRT150-DRT375 | Z311927E | Astigmatism correction variants |
+| **DFU (EU/INT)** | All Odyssey | Z311982E | European/International version |
+| **Spec Sheets** | All Odyssey | 2024REF4544 | TECNIS Odyssey IOL Spec Sheets 2024 |
+
+**Official Product Page:** https://www.jnjvisionpro.com/en-us/products/tecnis-odyssey/
+
+---
+
+### Clinical Study References (Data on File - Johnson & Johnson)
+
+#### Odyssey IOL Clinical Data
+| Reference ID | Study Description | Sample Size |
+|-------------|-------------------|-------------|
+| **DOF2023CT4050** | Multicenter retrospective real-world study (1-month) | n=96 |
+| **2024DOF4029** | Multicenter observational study (3-month) | n=33 |
+| **DOF2023CT4023** | Simulated visual acuity, defocus curves | Bench |
+| **2024DOF4030** | Low-light contrast comparison vs. PanOptix | Bench |
+| **DOF2020CT4014** | Comparative clinical evaluation vs. PanOptix (Forte 1 study) | Clinical |
+
+#### PureSee IOL Clinical Data
+| Reference ID | Study Description |
+|-------------|-------------------|
+| **DOF2023CT4011** | Visual symptoms simulations |
+| **DOF2023CT4043** | Clinical investigation patient satisfaction outcomes |
+
+#### Key Clinical Claims and Sources
+| Claim in Application | Source Reference |
+|---------------------|------------------|
+| "93% of patients report minimal or no halos and glare" (Odyssey) | DOF2023CT4050, 1-month post-op data |
+| "2× better contrast in low lighting" (Odyssey vs. PanOptix) | 2024DOF4030 |
+| "97% would recommend to friends/relatives" (PureSee) | DOF2023CT4043 |
+| "100% did not need glasses for distance" (PureSee) | DOF2023CT4043 |
+
+---
+
+### Published Clinical Studies
+
+1. **Dick, H. Burkhard MD, et al. (November 2022)** - "A Comparative Clinical Evaluation of a New TECNIS Presbyopia Correcting Intraocular Lens Against a Trifocal Intraocular Lens (Forte 1 Study)"
+
+2. **Eye Journal (2024)** - "Quality of vision clinical outcomes for a new fully-refractive extended depth of focus Intraocular Lens" - PureSee clinical outcomes
+
+3. **Holladay JT. Int'l IOL & Implant Registry 2003.** J Cataract Refract Surg. 2003; 29:176-197
+
+---
+
+### FDA & Regulatory References
+
+| Product | FDA GUDID | Regulatory Status |
+|---------|-----------|-------------------|
+| TECNIS Eyhance IOL | FDA-cleared | US, EU, Global |
+| TECNIS PureSee IOL | CE Mark | EMEA, APAC, Canada (US PMA pending) |
+| TECNIS Odyssey IOL | 05050474810693 | US, Japan, EU, Korea, Canada, Singapore, AU, NZ |
+
+**FDA MAUDE Database:** https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm
+
+**AccessGUDID (Odyssey):** https://accessgudid.nlm.nih.gov/devices/05050474810693
+
+---
+
+### Product Technical Specifications
+
+#### Model Numbers & A-Constants
+| Product | Model (Non-Toric) | Model (Toric) | A-Constant (Optical) | A-Constant (US) |
+|---------|-------------------|---------------|---------------------|-----------------|
+| Eyhance | ICB00/DIB00 | ICU150-ICU600 | 119.3 | 118.8 |
+| PureSee | ZEN00V/DEN00V | DET100-DET600 | Per DFU | Per DFU |
+| Odyssey | DRN00V | DRT150-DRT375 | Per DFU | Per DFU |
+
+#### Material & Design (All TECNIS IOLs)
+- **Material:** Hydrophobic acrylic with UV-absorbing properties
+- **Optic Diameter:** 6.0 mm
+- **Haptic Design:** Frosted haptics for rotational stability
+- **Delivery System:** TECNIS SIMPLICITY™ Delivery System (preloaded models)
+
+---
+
+### Healthcare Professional Resources
+
+| Resource | URL |
+|----------|-----|
+| J&J Vision Pro (US) | https://www.jnjvisionpro.com |
+| J&J Vision Pro (EU) | https://www.jnjvisionpro.eu |
+| Patient Education | https://www.clearvisionforyou.com |
+| TECNIS Toric Calculator | https://www.TecnisToricCalc.com |
+| Product Catalog (EMEA) | https://catalog.emeaassets.com/productsen/ |
+
+---
+
+### Document Revision History
+
+| Date | Change | Reference Updated |
+|------|--------|-------------------|
+| January 2026 | Added official IFU/DFU document numbers | All products |
+| January 2026 | Added clinical study references (DOF numbers) | Odyssey, PureSee |
+| January 2026 | Added FDA GUDID and regulatory status | All products |
+
+---
+
 ## Technical Implementation Notes
 
 ### Data Sources
-- Product specifications based on official J&J Vision TECNIS™ documentation
-- Visual capabilities verified against published clinical data
-- Decision criteria aligned with ophthalmology best practices
+- Product specifications based on official J&J Vision TECNIS™ IFU/DFU documentation (see references above)
+- Visual capabilities verified against published clinical data and Data on File references
+- Decision criteria aligned with ophthalmology best practices and on-label indications
 
 ### Code Location
 - Assessment logic: `client/src/hooks/useAssessment.tsx`
