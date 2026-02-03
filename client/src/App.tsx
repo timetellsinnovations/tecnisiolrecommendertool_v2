@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
+// TEMPORARY: PasswordGate protects app during review - remove wrapper when going live
+import { PasswordGate } from "@/components/PasswordGate";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 
@@ -24,8 +26,10 @@ function App() {
       <TooltipProvider>
         <ThemeProvider>
           <AccessibilityProvider>
-            <Toaster />
-            <Router />
+            <PasswordGate>
+              <Toaster />
+              <Router />
+            </PasswordGate>
           </AccessibilityProvider>
         </ThemeProvider>
       </TooltipProvider>
