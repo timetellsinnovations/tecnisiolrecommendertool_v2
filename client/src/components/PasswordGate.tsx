@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const STORAGE_KEY = 'tecnis_review_authenticated';
+const REVIEW_PASSWORD = 'tecnis2026';
 
 interface PasswordGateProps {
   children: React.ReactNode;
@@ -24,26 +25,16 @@ export function PasswordGate({ children }: PasswordGateProps) {
     setIsLoading(false);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    try {
-      const response = await fetch('/api/verify-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
-
-      if (response.ok) {
-        sessionStorage.setItem(STORAGE_KEY, 'true');
-        setIsAuthenticated(true);
-      } else {
-        setError('Incorrect password. Please try again.');
-        setPassword('');
-      }
-    } catch {
-      setError('Unable to verify. Please try again.');
+    if (password === REVIEW_PASSWORD) {
+      sessionStorage.setItem(STORAGE_KEY, 'true');
+      setIsAuthenticated(true);
+    } else {
+      setError('Incorrect password. Please try again.');
+      setPassword('');
     }
   };
 
